@@ -1810,7 +1810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c382b8214b9946cda20e615374a9543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  token: 0
+  token: 1
   isOwner: 0
 --- !u!1 &384885228
 GameObject:
@@ -2304,7 +2304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c382b8214b9946cda20e615374a9543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  token: 0
+  token: 2
   isOwner: 0
 --- !u!1 &578682056
 GameObject:
@@ -10109,7 +10109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c382b8214b9946cda20e615374a9543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  token: 0
+  token: 3
   isOwner: 0
 --- !u!1001 &1274343334
 PrefabInstance:
@@ -10462,7 +10462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c382b8214b9946cda20e615374a9543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  token: 0
+  token: 4
   isOwner: 0
 --- !u!1 &1415328019
 GameObject:
