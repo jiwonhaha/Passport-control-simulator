@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Left Hand
   - Right Hand
+  - Traveller
+  - Inspector
+  - Supervisor
   layers:
   - Default
   - TransparentFX
