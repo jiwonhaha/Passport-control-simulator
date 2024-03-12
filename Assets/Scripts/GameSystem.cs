@@ -53,6 +53,7 @@ public class GameSystem : MonoBehaviour
         {
             CapsuleCollider _ = players[0].AddComponent<CapsuleCollider>();
         }
+        context = NetworkScene.Register(this);
     }
 
     private void Update()
@@ -107,9 +108,15 @@ public class GameSystem : MonoBehaviour
 
             inspectorButton.interactable = true;
         }
+
+        Message m = new Message();
+        m.totalOftraveller = currentNumberOftraveller;
+        m.totalOfsupervisor = currentNumberOfsupervisor;
+        m.totalOfinspector = currentNumberOfinspector;
+        context.SendJson(m);
     }
 
-    private struct ButtonMessage
+    private struct Message
     {
         public int totalOftraveller;
         public int totalOfinspector;
@@ -125,10 +132,6 @@ public class GameSystem : MonoBehaviour
 
             Debug.Log("Player choose traveller role!");
             currentNumberOftraveller++;
-
-            ButtonMessage m = new ButtonMessage();
-            m.totalOftraveller = currentNumberOftraveller;
-            context.SendJson(m);
         }
             
     }
@@ -142,10 +145,6 @@ public class GameSystem : MonoBehaviour
 
             Debug.Log("Player choose supervisor role!");
             currentNumberOfsupervisor++;
-
-            ButtonMessage m = new ButtonMessage();
-            m.totalOfsupervisor = currentNumberOfsupervisor;
-            context.SendJson(m);
         }
     }
 
@@ -158,16 +157,12 @@ public class GameSystem : MonoBehaviour
 
             Debug.Log("Player choose inspector role!");
             currentNumberOfinspector++;
-
-            ButtonMessage m = new ButtonMessage();
-            m.totalOfinspector = currentNumberOfinspector;
-            context.SendJson(m);
         }
     }
 
     public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
-        var message = m.FromJson<ButtonMessage>();
+        var message = m.FromJson<Message>();
 
         if (currentNumberOftraveller != message.totalOftraveller)
         {
