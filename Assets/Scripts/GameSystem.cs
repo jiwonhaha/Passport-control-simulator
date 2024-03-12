@@ -5,24 +5,37 @@ using UnityEngine.UI;
 
 public class GameSystem : MonoBehaviour
 {
-    private GameObject[] traveller;
-    private GameObject[] inspector;
-    private GameObject[] supervisor;
-
     GameObject avatarManager;
 
-    GameObject[] player;
+    GameObject[] players;
 
     [Header("Game Simulation")]
     [SerializeField] bool isInGame = false;
+    private bool prevIsInGame = false;
 
-    [Header("Role Buttons")]
+    [Header("UI Buttons")]
     [SerializeField] Button travellerButton;
     [SerializeField] Button inspectorButton;
     [SerializeField] Button supervisorButton;
-
-    [Header("Setting Buttons")]
     [SerializeField] Button startButton;
+
+    [Header("Object Button")]
+    [SerializeField] GameObject inspectorPassButton;
+    [SerializeField] GameObject inspectorRejectButton;
+    [SerializeField] GameObject supervisorPassButton;
+    [SerializeField] GameObject supervisorRejectButton;
+
+    [Header("Settings")]
+    [SerializeField] int numberOfRounds;
+
+    [Header("Maximum number of each role")]
+    [SerializeField] int numberOfTravellers;
+    [SerializeField] int numberOfInspectors;
+    [SerializeField] int numberOfSupervisors;
+
+    int currentNumberOftraveller = 0;
+    int currentNumberOfinspector = 0;
+    int currentNumberOfsupervisor = 0;
 
     private void Awake()
     {
@@ -33,69 +46,70 @@ public class GameSystem : MonoBehaviour
         startButton.onClick.AddListener(RoundBegin);
     }
 
+    private void Start()
+    {
+        players = GameObject.FindGameObjectsWithTag("Player");
+        if (players[0].GetComponent<CapsuleCollider>() == null)
+        {
+            CapsuleCollider _ = players[0].AddComponent<CapsuleCollider>();
+        }
+    }
+
     private void Update()
     {
         if (!isInGame)
         {
-            avatarManager = GameObject.Find("Avatar Manager");
-            if (avatarManager != null)
-            {
-                Transform parentTransform = avatarManager.GetComponent<Transform>();
 
-                foreach (Transform childTransform in parentTransform)
-                {
-                    GameObject childGameObject = childTransform.gameObject;
-                    if (!(childGameObject.CompareTag("Player") || childGameObject.CompareTag("Supervisor") || childGameObject.CompareTag("Traveller") || childGameObject.CompareTag("Inspector")))
-                    {
-                        childGameObject.gameObject.tag = "Player";
-                    }    
-                    if (childGameObject.GetComponent<PlayerRoleAssign>() == null)
-                    {
-                        PlayerRoleAssign _ = childGameObject.AddComponent<PlayerRoleAssign>();
-                    }
-                        
-                }
+            if (currentNumberOftraveller == numberOfTravellers && currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
+            {
+                isInGame = true;
+            }
+        }
+        else
+        {
+            if (prevIsInGame != isInGame)
+            {
+                prevIsInGame = isInGame;
             }
         }
     }
 
     public void TagTraveller()
     {
-        Debug.Log("Player choose traveller role!");
-
-        player = GameObject.FindGameObjectsWithTag("Player");
-        player[0].transform.position = GameObject.Find("Marker (Traveller)").transform.position;
+        players = GameObject.FindGameObjectsWithTag("Player");
+        if (numberOfTravellers > currentNumberOftraveller)
+        {
+            players[0].transform.position = GameObject.Find("Marker (Traveller)").transform.position;
+            Debug.Log("Player choose traveller role!");
+            currentNumberOftraveller++;
+        }
+            
     }
 
     public void TagSupervisor()
     {
-        Debug.Log("Player choose supervisor role!");
+        players = GameObject.FindGameObjectsWithTag("Player");
+        if (numberOfSupervisors > currentNumberOfsupervisor)
+        {
+            players[0].transform.position = GameObject.Find("Marker (Supervisor)").transform.position;
+            Debug.Log("Player choose supervisor role!");
+            currentNumberOfsupervisor++;
+        }
     }
 
     public void TagInspector()
     {
-        Debug.Log("Player choose inspector role!");
+        players = GameObject.FindGameObjectsWithTag("Player");
+        if (numberOfInspectors > currentNumberOfinspector)
+        {
+            players[0].transform.position = GameObject.Find("Marker (Inspector)").transform.position;
+            Debug.Log("Player choose inspector role!");
+            currentNumberOfinspector++;
+        }
     }
 
     public void RoundBegin()
     {
-        traveller = GameObject.FindGameObjectsWithTag("Traveller");
-        inspector = GameObject.FindGameObjectsWithTag("Inspector");
-        supervisor = GameObject.FindGameObjectsWithTag("Supervisor");
-
-
-        if (traveller.Length == 1 && inspector.Length == 1 && supervisor.Length == 1)
-        {
-            traveller[0].transform.position = GameObject.Find("Marker (Traveller)").transform.position;
-            inspector[0].transform.position = GameObject.Find("Marker (Inspector)").transform.position;
-            supervisor[0].transform.position = GameObject.Find("Marker (Supervisor)").transform.position;
-
-            isInGame = true;
-        }
-        else
-        {
-            Debug.Log("Cannot start a game ");
-        }
         
     }
 }
