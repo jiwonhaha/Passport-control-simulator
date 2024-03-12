@@ -108,12 +108,6 @@ public class GameSystem : MonoBehaviour
 
             inspectorButton.interactable = true;
         }
-
-        Message m = new Message();
-        m.totalOftraveller = currentNumberOftraveller;
-        m.totalOfsupervisor = currentNumberOfsupervisor;
-        m.totalOfinspector = currentNumberOfinspector;
-        context.SendJson(m);
     }
 
     private struct Message
@@ -132,6 +126,12 @@ public class GameSystem : MonoBehaviour
 
             Debug.Log("Player choose traveller role!");
             currentNumberOftraveller++;
+
+            Message m = new Message();
+            m.totalOftraveller = currentNumberOftraveller;
+            m.totalOfsupervisor = currentNumberOfsupervisor;
+            m.totalOfinspector = currentNumberOfinspector;
+            context.SendJson(m);
         }
             
     }
@@ -145,6 +145,12 @@ public class GameSystem : MonoBehaviour
 
             Debug.Log("Player choose supervisor role!");
             currentNumberOfsupervisor++;
+
+            Message m = new Message();
+            m.totalOftraveller = currentNumberOftraveller;
+            m.totalOfsupervisor = currentNumberOfsupervisor;
+            m.totalOfinspector = currentNumberOfinspector;
+            context.SendJson(m);
         }
     }
 
@@ -157,6 +163,12 @@ public class GameSystem : MonoBehaviour
 
             Debug.Log("Player choose inspector role!");
             currentNumberOfinspector++;
+
+            Message m = new Message();
+            m.totalOftraveller = currentNumberOftraveller;
+            m.totalOfsupervisor = currentNumberOfsupervisor;
+            m.totalOfinspector = currentNumberOfinspector;
+            context.SendJson(m);
         }
     }
 
@@ -164,17 +176,10 @@ public class GameSystem : MonoBehaviour
     {
         var message = m.FromJson<Message>();
 
-        if (currentNumberOftraveller != message.totalOftraveller)
-        {
-            currentNumberOftraveller = message.totalOftraveller;
-        }
-        if (currentNumberOfinspector != message.totalOfinspector)
-        {
-            currentNumberOfinspector = message.totalOfinspector;
-        }
-        if (currentNumberOfsupervisor != message.totalOfsupervisor)
-        {
-            currentNumberOfsupervisor = message.totalOfsupervisor;
-        }
+        currentNumberOftraveller = message.totalOftraveller;
+        currentNumberOfinspector = message.totalOfinspector;
+        currentNumberOfsupervisor = message.totalOfsupervisor;
+
+
     }
 }

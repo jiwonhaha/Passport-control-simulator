@@ -80,6 +80,5 @@ public class Block : MonoBehaviour
             token = message.token;
             GetComponent<Rigidbody>().isKinematic = true;
         }
-        Debug.Log(gameObject.name + " Updated");
     }
 }
