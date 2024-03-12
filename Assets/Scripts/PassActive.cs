@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class PassActivate : MonoBehaviour
+public class PassActive : MonoBehaviour
 {
     public XRBaseInteractable xrButton; // The XR button or interactable object
     public GameObject objectToEnable; // The GameObject to enable when the button is interacted with

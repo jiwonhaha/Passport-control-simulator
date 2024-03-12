@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ubiq.Messaging;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class GameSystem : MonoBehaviour
 {
-    GameObject avatarManager;
+    NetworkContext context;
 
     GameObject[] players;
 
@@ -17,7 +20,6 @@ public class GameSystem : MonoBehaviour
     [SerializeField] Button travellerButton;
     [SerializeField] Button inspectorButton;
     [SerializeField] Button supervisorButton;
-    [SerializeField] Button startButton;
 
     [Header("Object Button")]
     [SerializeField] GameObject inspectorPassButton;
@@ -42,8 +44,6 @@ public class GameSystem : MonoBehaviour
         travellerButton.onClick.AddListener(TagTraveller);
         inspectorButton.onClick.AddListener(TagInspector);
         supervisorButton.onClick.AddListener(TagSupervisor);
-
-        startButton.onClick.AddListener(RoundBegin);
     }
 
     private void Start()
@@ -57,59 +57,129 @@ public class GameSystem : MonoBehaviour
 
     private void Update()
     {
-        if (!isInGame)
+        if (currentNumberOftraveller == numberOfTravellers)
         {
+            ColorBlock colors = travellerButton.colors;
+            colors.disabledColor = Color.red; // Set the disabled color to red
+            travellerButton.colors = colors;
 
-            if (currentNumberOftraveller == numberOfTravellers && currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
-            {
-                isInGame = true;
-            }
+            travellerButton.interactable = false;
         }
         else
         {
-            if (prevIsInGame != isInGame)
-            {
-                prevIsInGame = isInGame;
-            }
+            ColorBlock colors = travellerButton.colors;
+            colors.disabledColor = Color.green;
+            travellerButton.colors = colors;
+
+            travellerButton.interactable = true;
         }
+
+        if (currentNumberOfsupervisor == numberOfSupervisors)
+        {
+            ColorBlock colors = supervisorButton.colors;
+            colors.disabledColor = Color.red; // Set the disabled color to red
+            supervisorButton.colors = colors;
+
+            supervisorButton.interactable = false;
+        }
+        else
+        {
+            ColorBlock colors = supervisorButton.colors;
+            colors.disabledColor = Color.green;
+            supervisorButton.colors = colors;
+
+            supervisorButton.interactable = true;
+        }
+
+        if (currentNumberOfinspector == numberOfInspectors)
+        {
+            ColorBlock colors = inspectorButton.colors;
+            colors.disabledColor = Color.red; // Set the disabled color to red
+            inspectorButton.colors = colors;
+
+            inspectorButton.interactable = false;
+        }
+        else
+        {
+            ColorBlock colors = inspectorButton.colors;
+            colors.disabledColor = Color.green;
+            inspectorButton.colors = colors;
+
+            inspectorButton.interactable = true;
+        }
+    }
+
+    private struct ButtonMessage
+    {
+        public int totalOftraveller;
+        public int totalOfinspector;
+        public int totalOfsupervisor;
     }
 
     public void TagTraveller()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
         if (numberOfTravellers > currentNumberOftraveller)
         {
+            players = GameObject.FindGameObjectsWithTag("Player");
             players[0].transform.position = GameObject.Find("Marker (Traveller)").transform.position;
+
             Debug.Log("Player choose traveller role!");
             currentNumberOftraveller++;
+
+            ButtonMessage m = new ButtonMessage();
+            m.totalOftraveller = currentNumberOftraveller;
+            context.SendJson(m);
         }
             
     }
 
     public void TagSupervisor()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
         if (numberOfSupervisors > currentNumberOfsupervisor)
         {
+            players = GameObject.FindGameObjectsWithTag("Player");
             players[0].transform.position = GameObject.Find("Marker (Supervisor)").transform.position;
+
             Debug.Log("Player choose supervisor role!");
             currentNumberOfsupervisor++;
+
+            ButtonMessage m = new ButtonMessage();
+            m.totalOfsupervisor = currentNumberOfsupervisor;
+            context.SendJson(m);
         }
     }
 
     public void TagInspector()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
         if (numberOfInspectors > currentNumberOfinspector)
         {
+            players = GameObject.FindGameObjectsWithTag("Player");
             players[0].transform.position = GameObject.Find("Marker (Inspector)").transform.position;
+
             Debug.Log("Player choose inspector role!");
             currentNumberOfinspector++;
+
+            ButtonMessage m = new ButtonMessage();
+            m.totalOfinspector = currentNumberOfinspector;
+            context.SendJson(m);
         }
     }
 
-    public void RoundBegin()
+    public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
-        
+        var message = m.FromJson<ButtonMessage>();
+
+        if (currentNumberOftraveller != message.totalOftraveller)
+        {
+            currentNumberOftraveller = message.totalOftraveller;
+        }
+        if (currentNumberOfinspector != message.totalOfinspector)
+        {
+            currentNumberOfinspector = message.totalOfinspector;
+        }
+        if (currentNumberOfsupervisor != message.totalOfsupervisor)
+        {
+            currentNumberOfsupervisor = message.totalOfsupervisor;
+        }
     }
 }

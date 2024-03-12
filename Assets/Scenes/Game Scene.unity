@@ -10500,7 +10500,6 @@ GameObject:
   - component: {fileID: 578682060}
   - component: {fileID: 578682059}
   - component: {fileID: 578682058}
-  - component: {fileID: 578682061}
   m_Layer: 5
   m_Name: Traveller
   m_TagString: Untagged
@@ -10610,19 +10609,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578682056}
   m_CullTransparentMesh: 1
---- !u!114 &578682061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 578682056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af3e7f5e350934adcba5e9a83a60a292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yourButton: {fileID: 578682058}
 --- !u!1 &593573353
 GameObject:
   m_ObjectHideFlags: 0
@@ -10635,7 +10621,6 @@ GameObject:
   - component: {fileID: 593573357}
   - component: {fileID: 593573356}
   - component: {fileID: 593573355}
-  - component: {fileID: 593573358}
   m_Layer: 5
   m_Name: Supervisor
   m_TagString: Untagged
@@ -10745,19 +10730,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593573353}
   m_CullTransparentMesh: 1
---- !u!114 &593573358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593573353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af3e7f5e350934adcba5e9a83a60a292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yourButton: {fileID: 593573355}
 --- !u!1 &682581352
 GameObject:
   m_ObjectHideFlags: 0
@@ -11008,7 +10980,6 @@ GameObject:
   - component: {fileID: 854405034}
   - component: {fileID: 854405033}
   - component: {fileID: 854405032}
-  - component: {fileID: 854405035}
   m_Layer: 5
   m_Name: Inspector
   m_TagString: Untagged
@@ -11118,19 +11089,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854405030}
   m_CullTransparentMesh: 1
---- !u!114 &854405035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854405030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af3e7f5e350934adcba5e9a83a60a292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yourButton: {fileID: 854405032}
 --- !u!4 &855776422 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9014170783809206335, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -11415,7 +11373,6 @@ MonoBehaviour:
   travellerButton: {fileID: 578682058}
   inspectorButton: {fileID: 854405032}
   supervisorButton: {fileID: 593573355}
-  startButton: {fileID: 0}
   inspectorPassButton: {fileID: 837716879}
   inspectorRejectButton: {fileID: 859948030}
   supervisorPassButton: {fileID: 43260878}
