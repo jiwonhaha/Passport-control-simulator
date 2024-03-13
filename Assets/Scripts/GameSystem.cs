@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using Ubiq.Messaging;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
@@ -27,6 +28,12 @@ public class GameSystem : MonoBehaviour
     [SerializeField] GameObject inspectorRejectButton;
     [SerializeField] GameObject supervisorPassButton;
     [SerializeField] GameObject supervisorRejectButton;
+
+    [Header("Passport")]
+    [SerializeField] GameObject Passport1;
+    [SerializeField] GameObject Passport2;
+    [SerializeField] GameObject Passport3;
+    [SerializeField] GameObject Passport4;
 
     [Header("Settings")]
     [SerializeField] int numberOfRounds;
@@ -128,6 +135,9 @@ public class GameSystem : MonoBehaviour
             Debug.Log("Player choose traveller role!");
             currentNumberOftraveller++;
 
+            // Randomly activate one of the four objects
+            ActivateRandomObject();
+
             Message m = new Message();
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
@@ -135,6 +145,28 @@ public class GameSystem : MonoBehaviour
             context.SendJson(m);
         }
             
+    }
+
+    private void ActivateRandomObject()
+    {
+        // Place your GameObject references in an array
+        GameObject[] passports = new GameObject[] { Passport1, Passport2, Passport3, Passport4 };
+
+        // Generate a random index between 0 and 3 (since array indices are 0-based)
+        int randomIndex = new System.Random().Next(0, passports.Length); // Random.Next is inclusive at the start, exclusive at the end
+
+        // Select the GameObject using the random index
+        GameObject selectedPassport = passports[randomIndex];
+
+        // Activate the selected GameObject
+        if (selectedPassport != null)
+        {
+            selectedPassport.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Selected passport object not found!");
+        }
     }
 
     public void TagSupervisor()
