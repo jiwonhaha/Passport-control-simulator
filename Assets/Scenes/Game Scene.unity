@@ -11799,7 +11799,11 @@ MonoBehaviour:
   supervisorRejectButton: {fileID: 163048915}
   doorGate: {fileID: 130812142}
   cage: {fileID: 1927034734}
-  passports: []
+  passports:
+  - {fileID: 4413825272525632382, guid: 6ae6b4837fdff47efa388bfde40e100e, type: 3}
+  - {fileID: 2758347510829669202, guid: 031b5c7e295a24fee9ed7a45da7842d4, type: 3}
+  - {fileID: 4698405591580209508, guid: c4d5643d647e04a68aec5ccae1aa7b72, type: 3}
+  - {fileID: 4647688324317234373, guid: d102c8d8dc5474fd09988cd62c78ab12, type: 3}
   numberOfRounds: 4
   numberOfTravellers: 1
   numberOfInspectors: 1
@@ -22430,7 +22434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

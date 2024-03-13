@@ -63,10 +63,23 @@ public class GameSystem : MonoBehaviour
 
     private void Update()
     {
-       
-        if (isInGame)
+        // Remove ! to test the real play
+        if (!isInGame)
         {
+            // 
+            bool inspectorPass = inspectorPassButton.GetComponent<PassActive>().hasChosenChoice;
+            bool inspectorReject = inspectorRejectButton.GetComponent<PassActive>().hasChosenChoice;
+            bool supervisorPass;
+            bool supervisorReject;
 
+            if (inspectorPass)
+            {
+                doorGate.SetActive(false);
+            }
+            if (inspectorReject)
+            {
+                cage.SetActive(true);
+            }
         }
 
         else
