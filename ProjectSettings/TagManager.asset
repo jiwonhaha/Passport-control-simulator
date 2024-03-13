@@ -9,6 +9,7 @@ TagManager:
   - Traveller
   - Inspector
   - Supervisor
+  - Passport
   layers:
   - Default
   - TransparentFX

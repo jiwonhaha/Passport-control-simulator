@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6160637510168101131}
   m_Layer: 0
   m_Name: thailand
-  m_TagString: Untagged
+  m_TagString: Passport
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
