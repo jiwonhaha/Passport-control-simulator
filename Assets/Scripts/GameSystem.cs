@@ -11,6 +11,7 @@ public class GameSystem : MonoBehaviour
     NetworkContext context;
 
     GameObject[] players;
+    GameObject simulator;
 
     [Header("Game Simulation")]
     [SerializeField] bool isInGame = false;
@@ -48,12 +49,12 @@ public class GameSystem : MonoBehaviour
 
     private void Start()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
-        if (players[0].GetComponent<CapsuleCollider>() == null)
-        {
-            CapsuleCollider _ = players[0].AddComponent<CapsuleCollider>();
-        }
         context = NetworkScene.Register(this);
+
+//#if UNITY_EDITOR
+//        simulator = GameObject.Find("XR Device Simulator");
+//        simulator.SetActive(true);
+//#endif
     }
 
     private void Update()
