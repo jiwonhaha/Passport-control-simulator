@@ -158,25 +158,6 @@ public class GameSystem : MonoBehaviour
         public int totalOfsupervisor;
     }
 
-    public void TagTraveller()
-    {
-        if (numberOfTravellers > currentNumberOftraveller)
-        {
-            players = GameObject.FindGameObjectsWithTag("Player");
-            players[0].transform.position = GameObject.Find("Marker (Traveller)").transform.position;
-
-            Debug.Log("Player choose traveller role!");
-            currentNumberOftraveller++;
-
-            ButtonMessage m = new ButtonMessage();
-            m.totalOftraveller = currentNumberOftraveller;
-            m.totalOfsupervisor = currentNumberOfsupervisor;
-            m.totalOfinspector = currentNumberOfinspector;
-            context.SendJson(m);
-        }
-            
-    }
-
     private void SpawnPassport()
     {
 
@@ -190,6 +171,27 @@ public class GameSystem : MonoBehaviour
         Instantiate(selectedPassport, new Vector3(7.5f, 0.75f, 30.0f), UnityEngine.Random.rotation);
     }
 
+    public void TagTraveller()
+    {
+        if (numberOfTravellers > currentNumberOftraveller)
+        {
+            players = GameObject.FindGameObjectsWithTag("Player");
+            players[0].transform.position = GameObject.Find("Marker (Traveller)").transform.position;
+
+            Debug.Log("Player choose traveller role!");
+            currentNumberOftraveller++;
+
+            SpawnPassport();
+
+            ButtonMessage m = new ButtonMessage();
+            m.totalOftraveller = currentNumberOftraveller;
+            m.totalOfsupervisor = currentNumberOfsupervisor;
+            m.totalOfinspector = currentNumberOfinspector;
+            context.SendJson(m);
+        }
+            
+    }
+    
     public void TagSupervisor()
     {
         if (numberOfSupervisors > currentNumberOfsupervisor)

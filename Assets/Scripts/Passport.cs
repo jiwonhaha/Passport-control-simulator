@@ -22,7 +22,7 @@ public class Passport : MonoBehaviour
         interactable.firstSelectEntered.AddListener(OnPickedUp);
         interactable.lastSelectExited.AddListener(OnDropped);
         context = NetworkScene.Register(this);
-        isOwner = true; // Start by both exchanging the random tokens to see who wins...
+        isOwner = false; // Start by both exchanging the random tokens to see who wins...
     }
 
     void OnPickedUp(SelectEnterEventArgs ev)
