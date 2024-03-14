@@ -77,11 +77,6 @@ public class GameSystem : MonoBehaviour
 
         token = UnityEngine.Random.Range(1, 10000);
         passportIndex = new System.Random().Next(0, passports.Length);
-
-        PassportSpawnMessage m = new PassportSpawnMessage();
-        m.token = token;
-        m.index = passportIndex;
-        context.SendJson(m);
     }
 
     private void Update()
@@ -198,11 +193,12 @@ public class GameSystem : MonoBehaviour
 
                 SpawnPassport(passportIndex);
 
-                passportIndex = new System.Random().Next(0, passports.Length);
-
-                PassportSpawnMessage m = new PassportSpawnMessage();
+                Message m = new Message();
+                m.totalOftraveller = currentNumberOftraveller;
+                m.totalOfsupervisor = currentNumberOfsupervisor;
+                m.totalOfinspector = currentNumberOfinspector;
                 m.token = token;
-                m.index = new System.Random().Next(0, passports.Length);
+                m.passportIndex = new System.Random().Next(0, passports.Length);
                 context.SendJson(m);
             }
         }
@@ -244,10 +240,12 @@ public class GameSystem : MonoBehaviour
             currentNumberOfsupervisor = 0;
             currentNumberOftraveller = 0;
 
-            ButtonMessage m = new ButtonMessage();
+            Message m = new Message();
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
+            m.token = token;
+            m.passportIndex = new System.Random().Next(0, passports.Length);
             context.SendJson(m);
         }
         else
@@ -261,9 +259,12 @@ public class GameSystem : MonoBehaviour
 
             passportIndex = new System.Random().Next(0, passports.Length);
 
-            PassportSpawnMessage m = new PassportSpawnMessage();
+            Message m = new Message();
+            m.totalOftraveller = currentNumberOftraveller;
+            m.totalOfsupervisor = currentNumberOfsupervisor;
+            m.totalOfinspector = currentNumberOfinspector;
             m.token = token;
-            m.index = new System.Random().Next(0, passports.Length);
+            m.passportIndex = new System.Random().Next(0, passports.Length);
             context.SendJson(m);
         }
     }
@@ -278,10 +279,12 @@ public class GameSystem : MonoBehaviour
             Debug.Log("Player choose traveller role!");
             currentNumberOftraveller++;
 
-            ButtonMessage m = new ButtonMessage();
+            Message m = new Message();
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
+            m.token = token;
+            m.passportIndex = passportIndex;
             context.SendJson(m);
         }
             
@@ -297,10 +300,12 @@ public class GameSystem : MonoBehaviour
             Debug.Log("Player choose supervisor role!");
             currentNumberOfsupervisor++;
 
-            ButtonMessage m = new ButtonMessage();
+            Message m = new Message();
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
+            m.token = token;
+            m.passportIndex = passportIndex;
             context.SendJson(m);
         }
     }
@@ -315,41 +320,37 @@ public class GameSystem : MonoBehaviour
             Debug.Log("Player choose inspector role!");
             currentNumberOfinspector++;
 
-            ButtonMessage m = new ButtonMessage();
+            Message m = new Message();
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
+            m.token = token;
+            m.passportIndex = passportIndex;
             context.SendJson(m);
         }
     }
 
-    private struct ButtonMessage
+    private struct Message
     {
         public int totalOftraveller;
         public int totalOfinspector;
         public int totalOfsupervisor;
-    }
 
-    private struct PassportSpawnMessage
-    {
         public int token;
-        public int index;
+        public int passportIndex;
     }
 
     public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
-        var ButtonMessage = m.FromJson<ButtonMessage>();
-        var PassportSpawnMessage = m.FromJson<PassportSpawnMessage>();
+        var Message = m.FromJson<Message>();
 
-        currentNumberOftraveller = ButtonMessage.totalOftraveller;
-        currentNumberOfinspector = ButtonMessage.totalOfinspector;
-        currentNumberOfsupervisor = ButtonMessage.totalOfsupervisor;
+        currentNumberOftraveller = Message.totalOftraveller;
+        currentNumberOfinspector = Message.totalOfinspector;
+        currentNumberOfsupervisor = Message.totalOfsupervisor;
 
-        if (token < PassportSpawnMessage.token)
+        if (token < Message.token)
         {
-            passportIndex = PassportSpawnMessage.index;
+            passportIndex = Message.passportIndex;
         }
-
-        Debug.Log("Current Index: " + passportIndex);
     }
 }

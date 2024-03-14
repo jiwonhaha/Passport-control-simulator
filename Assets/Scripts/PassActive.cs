@@ -24,7 +24,7 @@ public class PassActive : MonoBehaviour
         {
             hasChosenChoice = false;
 
-            ButtonPress b = new ButtonPress();
+            Message b = new Message();
             b.isPress = hasChosenChoice;
             context.SendJson(b);
         }
@@ -47,19 +47,19 @@ public class PassActive : MonoBehaviour
         // Action to perform when the XR button is interacted with
         hasChosenChoice = true;
 
-        ButtonPress b = new ButtonPress();
+        Message b = new Message();
         b.isPress = hasChosenChoice;
         context.SendJson(b);
     }
 
-    private struct ButtonPress
+    private struct Message
     {
         public bool isPress;
     }
 
     public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
-        var message = m.FromJson<ButtonPress>();
+        var message = m.FromJson<Message>();
         if (!hasChosenChoice && message.isPress)
         {
             hasChosenChoice = message.isPress;

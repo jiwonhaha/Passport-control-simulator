@@ -39,7 +39,7 @@ public class Passport : MonoBehaviour
 
     }
 
-    private struct PassportMessage
+    private struct Message
     {
         public Vector3 position;
     }
@@ -49,7 +49,7 @@ public class Passport : MonoBehaviour
     {
         if (isOwner)
         {
-            PassportMessage m = new PassportMessage();
+            Message m = new Message();
             m.position = this.transform.localPosition;
             context.SendJson(m);
         }
@@ -57,7 +57,7 @@ public class Passport : MonoBehaviour
 
     public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
-        var message = m.FromJson<PassportMessage>();
+        var message = m.FromJson<Message>();
         if (!isOwner)
         {
             this.transform.localPosition = message.position;
