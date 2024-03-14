@@ -348,6 +348,7 @@ public class GameSystem : MonoBehaviour
         if (token < PassportSpawnMessage.token)
         {
             passportIndex = PassportSpawnMessage.index;
+            Debug.Log("Current Index: " + passportIndex);
         }
     }
 }
