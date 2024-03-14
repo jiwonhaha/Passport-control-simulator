@@ -61,7 +61,7 @@ public class Passport : MonoBehaviour
         var message = m.FromJson<PassportMessage>();
         if (!isOwner)
         {
-            transform.localPosition = message.position;
+            this.transform.localPosition = message.position;
             GetComponent<Rigidbody>().isKinematic = true;
         }
     }

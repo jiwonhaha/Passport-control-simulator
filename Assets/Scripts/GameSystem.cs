@@ -116,6 +116,9 @@ public class GameSystem : MonoBehaviour
             if (inspectorHasChosen && supervisorHasChosen)
             {
                 isGameReset = true;
+                inspectorHasChosen = false;
+                supervisorHasChosen = false;
+
                 StartCoroutine(GameReset());
             }
         }
@@ -209,7 +212,8 @@ public class GameSystem : MonoBehaviour
     }
 
     IEnumerator GameReset()
-    {
+    { 
+
         yield return new WaitForSeconds(3);
 
         GameObject passport = GameObject.FindGameObjectsWithTag("Passport")[0];
@@ -219,9 +223,6 @@ public class GameSystem : MonoBehaviour
         cage.SetActive(false);
 
         doorGate.SetActive(true);
-
-        inspectorHasChosen = false;
-        supervisorHasChosen = false;
 
         isGameReset = false;
 
@@ -249,6 +250,10 @@ public class GameSystem : MonoBehaviour
         else
         {
             Debug.Log("Start round " + currentRounds);
+            if (player.gameObject.tag == "Traveller")
+            {
+                player.transform.position = GameObject.Find("Marker (Traveller)").transform.position;
+            }
             SpawnPassport();
         }
     }
