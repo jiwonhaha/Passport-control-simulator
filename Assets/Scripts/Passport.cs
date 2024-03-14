@@ -35,7 +35,6 @@ public class Passport : MonoBehaviour
     {
         Debug.Log("Dropped");
         transform.parent = parent;
-        GetComponent<Rigidbody>().isKinematic = false;
         isOwner = false;
 
     }
@@ -62,7 +61,6 @@ public class Passport : MonoBehaviour
         if (!isOwner)
         {
             this.transform.localPosition = message.position;
-            GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }

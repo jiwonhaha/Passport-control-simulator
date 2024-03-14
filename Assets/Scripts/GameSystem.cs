@@ -50,6 +50,9 @@ public class GameSystem : MonoBehaviour
     int currentNumberOfinspector = 0;
     int currentNumberOfsupervisor = 0;
 
+    int token;
+    int passportIndex;
+
     private void Awake()
     {
         travellerButton.onClick.AddListener(TagTraveller);
@@ -71,6 +74,14 @@ public class GameSystem : MonoBehaviour
 
         inspectorHasChosen = false;
         supervisorHasChosen = false;
+
+        token = UnityEngine.Random.Range(1, 10000);
+        passportIndex = new System.Random().Next(0, passports.Length);
+
+        PassportSpawnMessage m = new PassportSpawnMessage();
+        m.token = token;
+        m.index = passportIndex;
+        context.SendJson(m);
     }
 
     private void Update()
@@ -185,29 +196,21 @@ public class GameSystem : MonoBehaviour
 
                 Debug.Log("Start round " + currentRounds);
 
-                SpawnPassport();
-                
+                SpawnPassport(passportIndex);
+
+                passportIndex = new System.Random().Next(0, passports.Length);
+
+                PassportSpawnMessage m = new PassportSpawnMessage();
+                m.token = token;
+                m.index = new System.Random().Next(0, passports.Length);
+                context.SendJson(m);
             }
         }
     }
 
-    private struct ButtonMessage
+    private void SpawnPassport(int randomIndex)
     {
-        public int totalOftraveller;
-        public int totalOfinspector;
-        public int totalOfsupervisor;
-    }
-
-    private void SpawnPassport()
-    {
-
-        // Generate a random index between 0 and 3 (since array indices are 0-based)
-        int randomIndex = new System.Random().Next(0, passports.Length); // Random.Next is inclusive at the start, exclusive at the end
-
-        // Select the GameObject using the random index
         GameObject selectedPassport = passports[randomIndex];
-
-        // Spawn the selected GameObject
         Instantiate(selectedPassport, new Vector3(7.5f, 0.75f, 30.0f), UnityEngine.Random.rotation);
     }
 
@@ -254,7 +257,14 @@ public class GameSystem : MonoBehaviour
             {
                 player.transform.position = GameObject.Find("Marker (Traveller)").transform.position;
             }
-            SpawnPassport();
+            SpawnPassport(passportIndex);
+
+            passportIndex = new System.Random().Next(0, passports.Length);
+
+            PassportSpawnMessage m = new PassportSpawnMessage();
+            m.token = token;
+            m.index = new System.Random().Next(0, passports.Length);
+            context.SendJson(m);
         }
     }
 
@@ -313,12 +323,31 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+    private struct ButtonMessage
+    {
+        public int totalOftraveller;
+        public int totalOfinspector;
+        public int totalOfsupervisor;
+    }
+
+    private struct PassportSpawnMessage
+    {
+        public int token;
+        public int index;
+    }
+
     public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
         var ButtonMessage = m.FromJson<ButtonMessage>();
+        var PassportSpawnMessage = m.FromJson<PassportSpawnMessage>();
 
         currentNumberOftraveller = ButtonMessage.totalOftraveller;
         currentNumberOfinspector = ButtonMessage.totalOfinspector;
         currentNumberOfsupervisor = ButtonMessage.totalOfsupervisor;
+
+        if (token < PassportSpawnMessage.token)
+        {
+            passportIndex = PassportSpawnMessage.index;
+        }
     }
 }
