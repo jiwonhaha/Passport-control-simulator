@@ -10,12 +10,13 @@ public class GameSystem : MonoBehaviour
 {
     NetworkContext context;
 
-    GameObject[] players;
+    GameObject player;
 
     public GameObject deviceSimulator;
 
     [Header("Game Simulation")]
-    [SerializeField] bool isInGame = false;
+    [SerializeField] bool isInGame;
+    public bool isGameReset;
 
     [Header("UI Buttons")]
     [SerializeField] Button travellerButton;
@@ -41,7 +42,9 @@ public class GameSystem : MonoBehaviour
     [SerializeField] int numberOfInspectors;
     [SerializeField] int numberOfSupervisors;
 
-    int currentRounds;
+    public int currentRounds;
+    bool inspectorHasChosen;
+    bool supervisorHasChosen;
 
     int currentNumberOftraveller = 0;
     int currentNumberOfinspector = 0;
@@ -60,7 +63,13 @@ public class GameSystem : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectsWithTag("Player")[0];
         context = NetworkScene.Register(this);
+
+        isInGame = false;
+
+        inspectorHasChosen = false;
+        supervisorHasChosen = false;
     }
 
     private void Update()
@@ -68,19 +77,45 @@ public class GameSystem : MonoBehaviour
         // Remove ! to test the real play
         if (isInGame)
         {
-            // 
             bool inspectorPass = inspectorPassButton.GetComponent<PassActive>().hasChosenChoice;
             bool inspectorReject = inspectorRejectButton.GetComponent<PassActive>().hasChosenChoice;
-            bool supervisorPass;
-            bool supervisorReject;
+            bool supervisorPass = supervisorPassButton.GetComponent<PassActive>().hasChosenChoice;
+            bool supervisorReject = supervisorRejectButton.GetComponent<PassActive>().hasChosenChoice;
 
-            if (inspectorPass)
+            if (!inspectorHasChosen)
             {
-                doorGate.SetActive(false);
+                if (inspectorPass)
+                {
+                    Debug.Log("Round: " + currentRounds + ", inspector chose passed!");
+                    doorGate.SetActive(false);
+                    inspectorHasChosen = true;
+                }
+                if (inspectorReject)
+                {
+                    Debug.Log("Round: " + currentRounds + ", inspector chose rejected!");
+                    cage.SetActive(true);
+                    inspectorHasChosen = true;
+                }
             }
-            if (inspectorReject)
+
+            if (!supervisorHasChosen)
             {
-                cage.SetActive(true);
+                if (supervisorPass)
+                {
+                    Debug.Log("Round: " + currentRounds + ", supervisor chose passed!");
+                    supervisorHasChosen = true;
+                }
+                if (supervisorReject)
+                {
+                    Debug.Log("Round: " + currentRounds + ", supervisor chose rejected!");
+                    supervisorHasChosen = true;
+                }
+            }
+
+            if (inspectorHasChosen && supervisorHasChosen)
+            {
+                isGameReset = true;
+                StartCoroutine(GameReset());
             }
         }
 
@@ -144,7 +179,8 @@ public class GameSystem : MonoBehaviour
                 isInGame = true;
                 currentRounds = 1;
 
-                // Randomly activate one of the four objects
+                Debug.Log("Start round " + currentRounds);
+
                 SpawnPassport();
                 
             }
@@ -171,12 +207,57 @@ public class GameSystem : MonoBehaviour
         Instantiate(selectedPassport, new Vector3(7.5f, 0.75f, 30.0f), UnityEngine.Random.rotation);
     }
 
+    IEnumerator GameReset()
+    {
+        yield return new WaitForSeconds(3);
+
+        GameObject passport = GameObject.FindGameObjectsWithTag("Passport")[0];
+        Destroy(passport);
+
+        cage.transform.position = new Vector3(-6f, 3f, 30f);
+        cage.SetActive(false);
+
+        doorGate.SetActive(true);
+
+        inspectorHasChosen = false;
+        supervisorHasChosen = false;
+
+        isGameReset = false;
+
+        currentRounds++;
+        if (currentRounds > numberOfRounds)
+        {
+            Debug.Log("Game End!");
+            isInGame = false;
+
+            player.gameObject.tag = "Player";
+            player.transform.position = new Vector3(0f, -0.25f, 0f);
+
+            currentRounds = 0;
+
+            currentNumberOfinspector = 0;
+            currentNumberOfsupervisor = 0;
+            currentNumberOftraveller = 0;
+
+            ButtonMessage m = new ButtonMessage();
+            m.totalOftraveller = currentNumberOftraveller;
+            m.totalOfsupervisor = currentNumberOfsupervisor;
+            m.totalOfinspector = currentNumberOfinspector;
+            context.SendJson(m);
+        }
+        else
+        {
+            Debug.Log("Start round " + currentRounds);
+            SpawnPassport();
+        }
+    }
+
     public void TagTraveller()
     {
         if (numberOfTravellers > currentNumberOftraveller)
         {
-            players = GameObject.FindGameObjectsWithTag("Player");
-            players[0].transform.position = GameObject.Find("Marker (Traveller)").transform.position;
+            player.transform.position = GameObject.Find("Marker (Traveller)").transform.position;
+            player.gameObject.tag = "Traveller";
 
             Debug.Log("Player choose traveller role!");
             currentNumberOftraveller++;
@@ -196,8 +277,8 @@ public class GameSystem : MonoBehaviour
     {
         if (numberOfSupervisors > currentNumberOfsupervisor)
         {
-            players = GameObject.FindGameObjectsWithTag("Player");
-            players[0].transform.position = GameObject.Find("Marker (Supervisor)").transform.position;
+            player.transform.position = GameObject.Find("Marker (Supervisor)").transform.position;
+            player.gameObject.tag = "Supervisor";
 
             Debug.Log("Player choose supervisor role!");
             currentNumberOfsupervisor++;
@@ -214,8 +295,8 @@ public class GameSystem : MonoBehaviour
     {
         if (numberOfInspectors > currentNumberOfinspector)
         {
-            players = GameObject.FindGameObjectsWithTag("Player");
-            players[0].transform.position = GameObject.Find("Marker (Inspector)").transform.position;
+            player.transform.position = GameObject.Find("Marker (Inspector)").transform.position;
+            player.gameObject.tag = "Inspector";
 
             Debug.Log("Player choose inspector role!");
             currentNumberOfinspector++;
@@ -235,7 +316,5 @@ public class GameSystem : MonoBehaviour
         currentNumberOftraveller = ButtonMessage.totalOftraveller;
         currentNumberOfinspector = ButtonMessage.totalOfinspector;
         currentNumberOfsupervisor = ButtonMessage.totalOfsupervisor;
-
-
     }
 }

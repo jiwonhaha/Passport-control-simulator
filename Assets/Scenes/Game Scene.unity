@@ -350,6 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xrButton: {fileID: 100360982}
   hasChosenChoice: 0
+  gameSystem: {fileID: 1077473986}
 --- !u!4 &124926755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6517269794870440891, guid: c135b413a5e1f4268985c473b94a306f, type: 3}
@@ -6004,6 +6005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xrButton: {fileID: 378195805}
   hasChosenChoice: 0
+  gameSystem: {fileID: 1077473986}
 --- !u!4 &460370894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f3a97ef472eba4587a8217d3f93e7eb4, type: 3}
@@ -11548,6 +11550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xrButton: {fileID: 920896516}
   hasChosenChoice: 0
+  gameSystem: {fileID: 1077473986}
 --- !u!1 &985190043
 GameObject:
   m_ObjectHideFlags: 0
@@ -12007,6 +12010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deviceSimulator: {fileID: 892516214}
   isInGame: 0
+  isGameReset: 0
   travellerButton: {fileID: 578682058}
   inspectorButton: {fileID: 854405032}
   supervisorButton: {fileID: 593573355}
@@ -12025,6 +12029,7 @@ MonoBehaviour:
   numberOfTravellers: 1
   numberOfInspectors: 1
   numberOfSupervisors: 1
+  currentRounds: 0
 --- !u!4 &1077473987
 Transform:
   m_ObjectHideFlags: 0
@@ -12178,27 +12183,27 @@ PrefabInstance:
       objectReference: {fileID: 1574842693}
     - target: {fileID: 2111886246478503278, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2111886246478503278, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2111886246478503278, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2111886246478503278, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2111886246478503278, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 53
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2111886246478503278, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -22.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2407431680527197411, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12414,27 +12419,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5293975139575421772, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5293975139575421772, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5293975139575421772, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5293975139575421772, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5293975139575421772, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5293975139575421772, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -22.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8225375711087241992, guid: 46c1f5d5a11cf5042886aabd56e7b9d7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -17343,6 +17348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xrButton: {fileID: 1120158340}
   hasChosenChoice: 0
+  gameSystem: {fileID: 1077473986}
 --- !u!1001 &1124135402
 PrefabInstance:
   m_ObjectHideFlags: 0
