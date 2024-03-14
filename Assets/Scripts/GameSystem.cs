@@ -67,6 +67,7 @@ public class GameSystem : MonoBehaviour
         context = NetworkScene.Register(this);
 
         isInGame = false;
+        isGameReset = false;
 
         inspectorHasChosen = false;
         supervisorHasChosen = false;
@@ -261,8 +262,6 @@ public class GameSystem : MonoBehaviour
 
             Debug.Log("Player choose traveller role!");
             currentNumberOftraveller++;
-
-            SpawnPassport();
 
             ButtonMessage m = new ButtonMessage();
             m.totalOftraveller = currentNumberOftraveller;
