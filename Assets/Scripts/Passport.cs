@@ -10,9 +10,6 @@ public class Passport : MonoBehaviour
     NetworkContext context;
     Transform parent;
 
-    // The token decides who has priority when two messages conflict. The higher
-    // one wins.
-    public int token;
 
     // Does this instance of the Component control the transforms for everyone?
     public bool isOwner;
@@ -25,14 +22,13 @@ public class Passport : MonoBehaviour
         interactable.firstSelectEntered.AddListener(OnPickedUp);
         interactable.lastSelectExited.AddListener(OnDropped);
         context = NetworkScene.Register(this);
-        token = Random.Range(1, 10000);
         isOwner = true; // Start by both exchanging the random tokens to see who wins...
     }
 
     void OnPickedUp(SelectEnterEventArgs ev)
     {
         Debug.Log("Picked up");
-        TakeOwnership();
+        isOwner = true;
     }
 
     void OnDropped(SelectExitEventArgs ev)
@@ -40,22 +36,13 @@ public class Passport : MonoBehaviour
         Debug.Log("Dropped");
         transform.parent = parent;
         GetComponent<Rigidbody>().isKinematic = false;
+        isOwner = false;
 
     }
 
-    private struct Message
+    private struct PassportMessage
     {
         public Vector3 position;
-        public int token;
-    }
-
-    // When a Component Instance takes Ownership, that Peer decides the position
-    // for everyone, either through the VR Controller or through its local Physics
-    // Engine
-    void TakeOwnership()
-    {
-        token++;
-        isOwner = true;
     }
 
     // Update is called once per frame
@@ -63,21 +50,18 @@ public class Passport : MonoBehaviour
     {
         if (isOwner)
         {
-            Message m = new Message();
+            PassportMessage m = new PassportMessage();
             m.position = this.transform.localPosition;
-            m.token = token;
             context.SendJson(m);
         }
     }
 
     public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
-        var message = m.FromJson<Message>();
-        transform.localPosition = message.position;
-        if (message.token > token)
+        var message = m.FromJson<PassportMessage>();
+        if (!isOwner)
         {
-            isOwner = false;
-            token = message.token;
+            transform.localPosition = message.position;
             GetComponent<Rigidbody>().isKinematic = true;
         }
     }
