@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6160637510168101131}
   - component: {fileID: 2152023143257799776}
   - component: {fileID: -8652182740977814098}
+  - component: {fileID: 1780080786950504788}
   m_Layer: 0
   m_Name: thailand
   m_TagString: Passport
@@ -288,3 +289,17 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   leftAttachTransform: {fileID: 0}
   rightAttachTransform: {fileID: 0}
+--- !u!114 &1780080786950504788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413825272525632382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b4522e7b3f6c4058a4fa941da6974f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  token: 0
+  isOwner: 0
