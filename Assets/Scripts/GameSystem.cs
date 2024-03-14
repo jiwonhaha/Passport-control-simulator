@@ -64,7 +64,7 @@ public class GameSystem : MonoBehaviour
     private void Update()
     {
         // Remove ! to test the real play
-        if (!isInGame)
+        if (isInGame)
         {
             // 
             bool inspectorPass = inspectorPassButton.GetComponent<PassActive>().hasChosenChoice;
