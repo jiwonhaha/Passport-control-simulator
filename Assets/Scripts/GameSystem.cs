@@ -146,6 +146,7 @@ public class GameSystem : MonoBehaviour
 
                 // Randomly activate one of the four objects
                 SpawnPassport();
+                
             }
         }
     }
