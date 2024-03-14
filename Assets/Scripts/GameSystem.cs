@@ -12,6 +12,8 @@ public class GameSystem : MonoBehaviour
 
     GameObject[] players;
 
+    public GameObject deviceSimulator;
+
     [Header("Game Simulation")]
     [SerializeField] bool isInGame = false;
 
@@ -39,7 +41,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField] int numberOfInspectors;
     [SerializeField] int numberOfSupervisors;
 
-    private int currentRounds;
+    int currentRounds;
 
     int currentNumberOftraveller = 0;
     int currentNumberOfinspector = 0;
@@ -50,15 +52,15 @@ public class GameSystem : MonoBehaviour
         travellerButton.onClick.AddListener(TagTraveller);
         inspectorButton.onClick.AddListener(TagInspector);
         supervisorButton.onClick.AddListener(TagSupervisor);
+
+#if UNITY_EDITOR
+        deviceSimulator.SetActive(true);
+#endif
     }
 
     private void Start()
     {
         context = NetworkScene.Register(this);
-
-#if UNITY_EDITOR
-        GameObject.Find("XR Device Simulator").SetActive(true);
-#endif
     }
 
     private void Update()
@@ -141,6 +143,9 @@ public class GameSystem : MonoBehaviour
             {
                 isInGame = true;
                 currentRounds = 1;
+
+                // Randomly activate one of the four objects
+                SpawnPassport();
             }
         }
     }
@@ -162,9 +167,6 @@ public class GameSystem : MonoBehaviour
             Debug.Log("Player choose traveller role!");
             currentNumberOftraveller++;
 
-            // Randomly activate one of the four objects
-            ActivateRandomObject();
-
             ButtonMessage m = new ButtonMessage();
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
@@ -174,7 +176,7 @@ public class GameSystem : MonoBehaviour
             
     }
 
-    private void ActivateRandomObject()
+    private void SpawnPassport()
     {
 
         // Generate a random index between 0 and 3 (since array indices are 0-based)
@@ -223,7 +225,7 @@ public class GameSystem : MonoBehaviour
         }
     }
 
-    public void ProcessButtonMessage(ReferenceCountedSceneGraphMessage m)
+    public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
         var ButtonMessage = m.FromJson<ButtonMessage>();
 

@@ -11849,6 +11849,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9014170783705847996, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
   m_PrefabInstance: {fileID: 17484213}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &892516214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+  m_PrefabInstance: {fileID: 1558230062}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &920896514 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4922582553321831162, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
@@ -12341,6 +12346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb50596acfdc4a1abacbf366dc7b9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deviceSimulator: {fileID: 892516214}
   isInGame: 0
   travellerButton: {fileID: 578682058}
   inspectorButton: {fileID: 854405032}
@@ -23166,7 +23172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
