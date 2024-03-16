@@ -49,6 +49,8 @@ public class GameSystem : MonoBehaviour
     [SerializeField] int numberOfInspectors;
     [SerializeField] int numberOfSupervisors;
 
+    [SerializeField] private Rigidbody playerRigidbody;
+
     public int currentRounds;
     bool inspectorHasChosen;
     bool supervisorHasChosen;
@@ -65,6 +67,7 @@ public class GameSystem : MonoBehaviour
         travellerButton.onClick.AddListener(TagTraveller);
         inspectorButton.onClick.AddListener(TagInspector);
         supervisorButton.onClick.AddListener(TagSupervisor);
+        playerRigidbody = player.GetComponent<Rigidbody>();
 
 #if UNITY_EDITOR
         deviceSimulator.SetActive(true);
@@ -282,7 +285,7 @@ public class GameSystem : MonoBehaviour
             if (player.CompareTag("Traveller"))
             {
                 Debug.Log("Teleport traveller to start point");
-                player.transform.position = travellerMarker;
+                playerRigidbody.MovePosition(travellerMarker);
             }
             
             SpawnPassport(passportIndex);
