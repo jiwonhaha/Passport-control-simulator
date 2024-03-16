@@ -200,12 +200,14 @@ public class GameSystem : MonoBehaviour
 
                 SpawnPassport(passportIndex);
 
+                passportIndex = new System.Random().Next(0, passports.Length);
+
                 Message m = new Message();
                 m.totalOftraveller = currentNumberOftraveller;
                 m.totalOfsupervisor = currentNumberOfsupervisor;
                 m.totalOfinspector = currentNumberOfinspector;
                 m.token = token;
-                m.passportIndex = new System.Random().Next(0, passports.Length);
+                m.passportIndex = passportIndex;
                 context.SendJson(m);
             }
         }
@@ -217,6 +219,16 @@ public class GameSystem : MonoBehaviour
         Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
     }
 
+    //private void ShowFinalResult()
+    //{
+
+    //}
+
+    //private void HideFinalResult()
+    //{
+
+    //}
+
     IEnumerator GameReset()
     { 
 
@@ -224,6 +236,12 @@ public class GameSystem : MonoBehaviour
 
         GameObject passport = GameObject.FindGameObjectsWithTag("Passport")[0];
         Destroy(passport);
+
+        GameObject[] screens = GameObject.FindGameObjectsWithTag("Passport UI");
+        for(int i = 0; i < screens.Length; i++)
+        {
+            Destroy(screens[i]);
+        }
 
         cage.transform.position = new Vector3(-6f, 3f, 30f);
         cage.SetActive(false);
@@ -247,12 +265,14 @@ public class GameSystem : MonoBehaviour
             currentNumberOfsupervisor = 0;
             currentNumberOftraveller = 0;
 
+            passportIndex = new System.Random().Next(0, passports.Length);
+
             Message m = new Message();
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
             m.token = token;
-            m.passportIndex = new System.Random().Next(0, passports.Length);
+            m.passportIndex = passportIndex;
             context.SendJson(m);
         }
         else
