@@ -8,8 +8,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class GameSystem : MonoBehaviour
 {
-    NetworkContext context;
-
     [Header("XR objects")]
     [SerializeField] GameObject player;
     [SerializeField] GameObject deviceSimulator;
@@ -60,6 +58,12 @@ public class GameSystem : MonoBehaviour
     int token;
     int passportIndex;
 
+    List<GameObject> finalResultList = new List<GameObject>();
+    List<bool> inspectorDecisionList = new List<bool>();
+    List<bool> supervisorDecisionList = new List<bool>();
+
+    NetworkContext context;
+
     private void Awake()
     {
         travellerButton.onClick.AddListener(TagTraveller);
@@ -101,12 +105,14 @@ public class GameSystem : MonoBehaviour
                 if (inspectorPass)
                 {
                     Debug.Log("Round: " + currentRounds + ", inspector chose passed!");
+                    inspectorDecisionList.Add(true);
                     doorGate.SetActive(false);
                     inspectorHasChosen = true;
                 }
                 if (inspectorReject)
                 {
                     Debug.Log("Round: " + currentRounds + ", inspector chose rejected!");
+                    inspectorDecisionList.Add(false);
                     cage.SetActive(true);
                     inspectorHasChosen = true;
                 }
@@ -117,11 +123,13 @@ public class GameSystem : MonoBehaviour
                 if (supervisorPass)
                 {
                     Debug.Log("Round: " + currentRounds + ", supervisor chose passed!");
+                    supervisorDecisionList.Add(true);
                     supervisorHasChosen = true;
                 }
                 if (supervisorReject)
                 {
                     Debug.Log("Round: " + currentRounds + ", supervisor chose rejected!");
+                    supervisorDecisionList.Add(false);
                     supervisorHasChosen = true;
                 }
             }
@@ -131,6 +139,15 @@ public class GameSystem : MonoBehaviour
                 isGameReset = true;
                 inspectorHasChosen = false;
                 supervisorHasChosen = false;
+
+                GameObject[] resultLists = GameObject.FindGameObjectsWithTag("Passport UI");
+                if (resultLists.Length != 0)
+                {
+                    for (int i = 0; i < resultLists.Length; i++)
+                    {
+                        finalResultList.Add(resultLists[i]);
+                    }
+                }
 
                 StartCoroutine(GameReset());
             }
@@ -191,7 +208,8 @@ public class GameSystem : MonoBehaviour
             }
 
             //if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors && currentNumberOftraveller == numberOfTravellers)
-            if (currentNumberOfinspector == numberOfInspectors && currentNumberOftraveller == numberOfTravellers)
+            //if (currentNumberOfinspector == numberOfInspectors && currentNumberOftraveller == numberOfTravellers)
+            if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
             {
                 isInGame = true;
                 currentRounds = 1;
@@ -228,15 +246,20 @@ public class GameSystem : MonoBehaviour
         Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
     }
 
-    //private void ShowFinalResult()
-    //{
+    private void ShowFinalResult()
+    {
+       for (int i = 0; i < numberOfRounds; i++)
+       {
+            GameObject result = finalResultList[i];
+            float zPos = 3.2f - (float)i * 2.1f;
+            Instantiate(result, new Vector3(4.3f, 1.75f, zPos), Quaternion.Euler(0, 90, 0));
+       }
+    }
 
-    //}
+    private void HideFinalResult()
+    {
 
-    //private void HideFinalResult()
-    //{
-
-    //}
+    }
 
     IEnumerator GameReset()
     { 
@@ -308,8 +331,8 @@ public class GameSystem : MonoBehaviour
                 Debug.Log("Passport generated with Index: " + passportIndex);
 
                 player.transform.position = travellerMarker;
-                player.transform.position = travellerMarker;
-                player.transform.position = travellerMarker;
+                Debug.Log("Traveller marker: " + travellerMarker);
+                Debug.Log("Player position: " + player.transform.position);
 
             }
             else
