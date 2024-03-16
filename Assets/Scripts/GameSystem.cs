@@ -49,8 +49,6 @@ public class GameSystem : MonoBehaviour
     [SerializeField] int numberOfInspectors;
     [SerializeField] int numberOfSupervisors;
 
-    [SerializeField] private Rigidbody playerRigidbody;
-
     public int currentRounds;
     bool inspectorHasChosen;
     bool supervisorHasChosen;
@@ -67,7 +65,6 @@ public class GameSystem : MonoBehaviour
         travellerButton.onClick.AddListener(TagTraveller);
         inspectorButton.onClick.AddListener(TagInspector);
         supervisorButton.onClick.AddListener(TagSupervisor);
-        playerRigidbody = player.GetComponent<Rigidbody>();
 
 #if UNITY_EDITOR
         deviceSimulator.SetActive(true);
@@ -85,7 +82,7 @@ public class GameSystem : MonoBehaviour
         inspectorHasChosen = false;
         supervisorHasChosen = false;
 
-        token = UnityEngine.Random.Range(1, 10000);
+        token = 0;
         passportIndex = new System.Random().Next(0, passports.Length);
     }
 
@@ -203,14 +200,23 @@ public class GameSystem : MonoBehaviour
 
                 SpawnPassport(passportIndex);
 
-                passportIndex = new System.Random().Next(0, passports.Length);
-
                 Message m = new Message();
+                if (player.CompareTag("Traveller"))
+                {
+                    passportIndex = new System.Random().Next(0, passports.Length);
+
+                    m.token = 1;
+                    m.passportIndex = passportIndex;
+                    Debug.Log(passportIndex);
+                }
+                else
+                {
+                    m.token = 0;
+                    m.passportIndex = passportIndex;
+                }
                 m.totalOftraveller = currentNumberOftraveller;
                 m.totalOfsupervisor = currentNumberOfsupervisor;
                 m.totalOfinspector = currentNumberOfinspector;
-                m.token = token;
-                m.passportIndex = passportIndex;
                 context.SendJson(m);
             }
         }
@@ -268,36 +274,49 @@ public class GameSystem : MonoBehaviour
             currentNumberOfsupervisor = 0;
             currentNumberOftraveller = 0;
 
-            passportIndex = new System.Random().Next(0, passports.Length);
-
             Message m = new Message();
+            if (player.CompareTag("Traveller"))
+            {
+                passportIndex = new System.Random().Next(0, passports.Length);
+
+                m.token = 1;
+                m.passportIndex = passportIndex;
+                Debug.Log(passportIndex);
+            }
+            else
+            {
+                m.token = 0;
+                m.passportIndex = passportIndex;
+            }
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
-            m.token = token;
-            m.passportIndex = passportIndex;
             context.SendJson(m);
         }
         else
         {
             Debug.Log("Start round " + currentRounds);
-
-            if (player.CompareTag("Traveller"))
-            {
-                Debug.Log("Teleport traveller to start point");
-                playerRigidbody.MovePosition(travellerMarker);
-            }
-            
             SpawnPassport(passportIndex);
 
-            passportIndex = new System.Random().Next(0, passports.Length);
-
             Message m = new Message();
+            if (player.CompareTag("Traveller"))
+            {
+                passportIndex = new System.Random().Next(0, passports.Length);
+
+                m.token = 1;
+                m.passportIndex = passportIndex;
+                Debug.Log(passportIndex);
+
+                player.transform.position = travellerMarker;
+            }
+            else
+            {
+                m.token = 0;
+                m.passportIndex = passportIndex;
+            }
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
-            m.token = token;
-            m.passportIndex = passportIndex;
             context.SendJson(m);
         }
     }
@@ -316,7 +335,7 @@ public class GameSystem : MonoBehaviour
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
-            m.token = token;
+            m.token = 1;
             m.passportIndex = passportIndex;
             context.SendJson(m);
         }
@@ -337,7 +356,7 @@ public class GameSystem : MonoBehaviour
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
-            m.token = token;
+            m.token = 0;
             m.passportIndex = passportIndex;
             context.SendJson(m);
         }
@@ -357,7 +376,7 @@ public class GameSystem : MonoBehaviour
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
-            m.token = token;
+            m.token = 0;
             m.passportIndex = passportIndex;
             context.SendJson(m);
         }

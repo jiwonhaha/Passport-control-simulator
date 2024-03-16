@@ -280,6 +280,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+--- !u!1 &72950474 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+  m_PrefabInstance: {fileID: 17484213}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &82817565
 GameObject:
   m_ObjectHideFlags: 0
@@ -12039,7 +12044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb50596acfdc4a1abacbf366dc7b9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1327793996}
+  player: {fileID: 72950474}
   deviceSimulator: {fileID: 892516214}
   isInGame: 0
   isGameReset: 0
@@ -17894,11 +17899,6 @@ Transform:
   - {fileID: 1959019030}
   m_Father: {fileID: 6283349464222586939}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!1 &1327793996 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-  m_PrefabInstance: {fileID: 17484213}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1415328019
 GameObject:
   m_ObjectHideFlags: 0
