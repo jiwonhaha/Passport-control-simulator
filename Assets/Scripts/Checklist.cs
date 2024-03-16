@@ -5,22 +5,25 @@ using UnityEngine;
 public class Checklist : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] GameSystem gameSystem;
+
+    Vector3 originalScale;
+
+    private void Start()
+    {
+        originalScale = gameObject.transform.localScale;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameSystem.isInGame)
+        Debug.Log(player.gameObject.tag);
+        if (player.CompareTag("Supervisor"))
         {
-            if (player.CompareTag("Supervisor"))
-            {
-                gameObject.SetActive(true);
-            }
+            gameObject.transform.localScale = originalScale;
         }
-        
         else
         {
-            gameObject.SetActive(false);
+            gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
         }
     }
 }
