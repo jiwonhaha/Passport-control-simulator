@@ -10,6 +10,7 @@ TagManager:
   - Inspector
   - Supervisor
   - Passport
+  - Passport UI
   layers:
   - Default
   - TransparentFX

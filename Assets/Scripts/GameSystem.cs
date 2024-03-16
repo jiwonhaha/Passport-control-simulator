@@ -10,12 +10,12 @@ public class GameSystem : MonoBehaviour
 {
     NetworkContext context;
 
-    GameObject player;
-
-    public GameObject deviceSimulator;
+    [Header("XR objects")]
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject deviceSimulator;
 
     [Header("Game Simulation")]
-    [SerializeField] bool isInGame;
+    public bool isInGame;
     public bool isGameReset;
 
     [Header("UI Buttons")]
@@ -33,8 +33,15 @@ public class GameSystem : MonoBehaviour
     [SerializeField] GameObject doorGate;
     [SerializeField] GameObject cage;
 
-    [Header("Passport")]
+    [Header("Passport List")]
     [SerializeField] GameObject[] passports;
+
+    [Header("Teleportation Marker")]
+    [SerializeField] Vector3 travellerMarker;
+    [SerializeField] Vector3 inspectorMarker;
+    [SerializeField] Vector3 supervisorMarker;
+    [SerializeField] Vector3 lobbyMarker;
+    [SerializeField] Vector3 passportSpawnPoint = new Vector3(7.5f, 0.75f, 30.0f);
 
     [Header("Settings")]
     [SerializeField] int numberOfRounds;
@@ -66,7 +73,7 @@ public class GameSystem : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectsWithTag("Player")[0];
+        player.gameObject.tag = "Player";
         context = NetworkScene.Register(this);
 
         isInGame = false;
@@ -207,7 +214,7 @@ public class GameSystem : MonoBehaviour
     private void SpawnPassport(int randomIndex)
     {
         GameObject selectedPassport = passports[randomIndex];
-        Instantiate(selectedPassport, new Vector3(7.5f, 0.75f, 30.0f), UnityEngine.Random.rotation);
+        Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
     }
 
     IEnumerator GameReset()
@@ -232,7 +239,7 @@ public class GameSystem : MonoBehaviour
             isInGame = false;
 
             player.gameObject.tag = "Player";
-            player.transform.position = new Vector3(0f, -0.25f, 0f);
+            player.transform.position = lobbyMarker;
 
             currentRounds = 0;
 
@@ -251,10 +258,13 @@ public class GameSystem : MonoBehaviour
         else
         {
             Debug.Log("Start round " + currentRounds);
-            if (player.gameObject.tag == "Traveller")
+
+            if (player.CompareTag("Traveller"))
             {
-                player.transform.position = GameObject.Find("Marker (Traveller)").transform.position;
+                Debug.Log("Teleport traveller to start point");
+                player.transform.position = travellerMarker;
             }
+            
             SpawnPassport(passportIndex);
 
             passportIndex = new System.Random().Next(0, passports.Length);
@@ -264,7 +274,7 @@ public class GameSystem : MonoBehaviour
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
             m.token = token;
-            m.passportIndex = new System.Random().Next(0, passports.Length);
+            m.passportIndex = passportIndex;
             context.SendJson(m);
         }
     }
@@ -273,7 +283,7 @@ public class GameSystem : MonoBehaviour
     {
         if (numberOfTravellers > currentNumberOftraveller)
         {
-            player.transform.position = GameObject.Find("Marker (Traveller)").transform.position;
+            player.transform.position = travellerMarker;
             player.gameObject.tag = "Traveller";
 
             Debug.Log("Player choose traveller role!");
@@ -294,7 +304,7 @@ public class GameSystem : MonoBehaviour
     {
         if (numberOfSupervisors > currentNumberOfsupervisor)
         {
-            player.transform.position = GameObject.Find("Marker (Supervisor)").transform.position;
+            player.transform.position = supervisorMarker;
             player.gameObject.tag = "Supervisor";
 
             Debug.Log("Player choose supervisor role!");
@@ -314,7 +324,7 @@ public class GameSystem : MonoBehaviour
     {
         if (numberOfInspectors > currentNumberOfinspector)
         {
-            player.transform.position = GameObject.Find("Marker (Inspector)").transform.position;
+            player.transform.position = inspectorMarker;
             player.gameObject.tag = "Inspector";
 
             Debug.Log("Player choose inspector role!");

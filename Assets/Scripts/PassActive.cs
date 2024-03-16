@@ -44,12 +44,16 @@ public class PassActive : MonoBehaviour
 
     private void HandleSelectEntered(XRBaseInteractor interactor)
     {
-        // Action to perform when the XR button is interacted with
-        hasChosenChoice = true;
+        if (gameSystem.isInGame)
+        {
+            // Action to perform when the XR button is interacted with
+            hasChosenChoice = true;
 
-        Message b = new Message();
-        b.isPress = hasChosenChoice;
-        context.SendJson(b);
+            Message b = new Message();
+            b.isPress = hasChosenChoice;
+            context.SendJson(b);
+        }
+        
     }
 
     private struct Message

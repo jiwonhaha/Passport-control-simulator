@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 6146288922275692872}
   m_Layer: 5
   m_Name: Screen Saudi
-  m_TagString: Untagged
+  m_TagString: Passport UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
