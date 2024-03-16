@@ -305,9 +305,12 @@ public class GameSystem : MonoBehaviour
 
                 m.token = 1;
                 m.passportIndex = passportIndex;
-                Debug.Log(passportIndex);
+                Debug.Log("Passport generated with Index: " + passportIndex);
 
                 player.transform.position = travellerMarker;
+                player.transform.position = travellerMarker;
+                player.transform.position = travellerMarker;
+
             }
             else
             {
