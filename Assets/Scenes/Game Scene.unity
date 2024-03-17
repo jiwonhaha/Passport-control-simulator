@@ -12387,6 +12387,12 @@ MonoBehaviour:
   numberOfTravellers: 1
   numberOfInspectors: 1
   numberOfSupervisors: 1
+  Stories:
+  - {fileID: 2768795049353033739, guid: 00e0e667eb856468e8e0470d6363a85a, type: 3}
+  - {fileID: 2043202991290655534, guid: eecdbe2d250a84a7fa1476f5233698cf, type: 3}
+  - {fileID: 312400248366556852, guid: 6ae7d64193a774198a20d66ad9810b94, type: 3}
+  - {fileID: 5636290925985386441, guid: 729a56cdcc8dd45f5989b55904a672b3, type: 3}
+  - {fileID: 1529601546387485648, guid: 7a732a87d44f34f6183c27341cdd748b, type: 3}
   currentRounds: 0
 --- !u!4 &1077473987
 Transform:

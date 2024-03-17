@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7264181847184576650}
   m_Layer: 5
   m_Name: Brazil_story
-  m_TagString: Untagged
+  m_TagString: Story
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8287249878088230263
 MonoBehaviour:
   m_ObjectHideFlags: 0

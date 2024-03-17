@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 6420405144781779204}
   m_Layer: 5
   m_Name: Saudi_story
-  m_TagString: Untagged
+  m_TagString: Story
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -46,6 +46,11 @@ public class GameSystem : MonoBehaviour
     [SerializeField] int numberOfInspectors;
     [SerializeField] int numberOfSupervisors;
 
+    [Header("Passenger Stories")]
+    [SerializeField] GameObject[] Stories;
+    private List<GameObject> instantiatedStoryElements = new List<GameObject>();
+
+
     public int currentRounds;
     bool inspectorHasChosen;
     bool supervisorHasChosen;
@@ -216,6 +221,7 @@ public class GameSystem : MonoBehaviour
                 Debug.Log("Start round " + currentRounds);
 
                 SpawnPassport(passportIndex);
+                ActivateStory(passportIndex);
 
                 HideFinalResult();
 
@@ -302,6 +308,13 @@ public class GameSystem : MonoBehaviour
 
         GameObject passport = GameObject.FindGameObjectsWithTag("Passport")[0];
         Destroy(passport);
+        foreach (GameObject story in instantiatedStoryElements)
+        {
+            Destroy(story);
+        
+        }
+
+        instantiatedStoryElements.Clear(); 
 
         GameObject[] screens = GameObject.FindGameObjectsWithTag("Passport UI");
         for(int i = 0; i < screens.Length; i++)
@@ -356,6 +369,7 @@ public class GameSystem : MonoBehaviour
         {
             Debug.Log("Start round " + currentRounds);
             SpawnPassport(passportIndex);
+            ActivateStory(passportIndex);
 
             Message m = new Message();
             if (player.CompareTag("Traveller"))
@@ -467,4 +481,29 @@ public class GameSystem : MonoBehaviour
             passportIndex = Message.passportIndex;
         }
     }
+
+    private void ActivateStory(int index)
+    {
+        // Deactivate all UI elements before activating the specified one
+        foreach (GameObject story in Stories)
+        {
+            if (story != null)
+            {
+                story.SetActive(false);
+            }
+        }
+
+        // Check if the index is within the range of uiElements array and activate the UI element
+        if (index >= 0 && index < Stories.Length && Stories[index] != null)
+        {
+            GameObject selectedStory = Stories[index];
+            selectedStory.SetActive(true);
+
+            // Spawn the selected GameObject
+            GameObject story = Instantiate(selectedStory, new Vector3(5.5f, 1.0f, 33.0f), Quaternion.Euler(0, 0, 0));
+            instantiatedStoryElements.Add(story);
+
+        }
+    }
+
 }
