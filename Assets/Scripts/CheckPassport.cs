@@ -29,7 +29,6 @@ public class CheckPassport : MonoBehaviour
         {
             if (name.StartsWith("saudi"))
             {
-                
                 ActivateUIElement(0);
             }
             else if (name.StartsWith("thailand"))
@@ -43,6 +42,10 @@ public class CheckPassport : MonoBehaviour
             else if (name.StartsWith("brazil"))
             {
                 ActivateUIElement(3); 
+            }
+            else if (name.StartsWith("korea"))
+            {
+                ActivateUIElement(4);
             }
         }
     }
