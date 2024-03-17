@@ -521,7 +521,6 @@ GameObject:
   - component: {fileID: 3586928341528402233}
   - component: {fileID: 8937982581160668800}
   - component: {fileID: 6763075958583788115}
-  - component: {fileID: 2938556332548023068}
   m_Layer: 5
   m_Name: Visa Free List
   m_TagString: Untagged
@@ -536,7 +535,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8639458941101391557}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -0.806}
   m_LocalScale: {x: 0.0010000002, y: 0.001, z: 0.0010000002}
   m_ConstrainProportionsScale: 0
@@ -546,7 +545,7 @@ RectTransform:
   - {fileID: 5682197379128955768}
   - {fileID: 4100027318328240696}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -2.638, y: -0.126}
@@ -617,16 +616,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
---- !u!114 &2938556332548023068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8639458941101391557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 955224189952c4345b9e07307ace20ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
