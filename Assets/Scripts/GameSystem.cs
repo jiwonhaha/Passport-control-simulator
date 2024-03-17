@@ -207,8 +207,8 @@ public class GameSystem : MonoBehaviour
             }
 
             //if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors && currentNumberOftraveller == numberOfTravellers)
-            //if (currentNumberOfinspector == numberOfInspectors && currentNumberOftraveller == numberOfTravellers)
-            if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
+            if (currentNumberOfinspector == numberOfInspectors && currentNumberOftraveller == numberOfTravellers)
+            //if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
             {
                 isInGame = true;
                 currentRounds = 1;
