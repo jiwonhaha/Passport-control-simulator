@@ -144,7 +144,7 @@ public class GameSystem : MonoBehaviour
                 {
                     for (int i = 0; i < resultLists.Length; i++)
                     {
-                        finalResultList.Add(resultLists[i]);
+                        finalResultList.Add(resultLists[i].gameObject);
                     }
                 }
 
@@ -237,6 +237,10 @@ public class GameSystem : MonoBehaviour
                 m.totalOfsupervisor = currentNumberOfsupervisor;
                 m.totalOfinspector = currentNumberOfinspector;
                 context.SendJson(m);
+
+                finalResultList = new List<GameObject>();
+                inspectorDecisionList = new List<bool>();
+                supervisorDecisionList = new List<bool>();
             }
         }
     }
