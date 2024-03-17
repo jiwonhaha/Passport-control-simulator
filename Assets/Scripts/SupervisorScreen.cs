@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Checklist : MonoBehaviour
+public class SupervisorScreen : MonoBehaviour
 {
     [SerializeField] GameObject player;
 
