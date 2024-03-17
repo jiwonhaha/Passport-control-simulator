@@ -4,7 +4,6 @@ using System;
 using Ubiq.Messaging;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public class GameSystem : MonoBehaviour
 {
@@ -218,6 +217,8 @@ public class GameSystem : MonoBehaviour
 
                 SpawnPassport(passportIndex);
 
+                HideFinalResult();
+
                 Message m = new Message();
                 if (player.CompareTag("Traveller"))
                 {
@@ -248,17 +249,46 @@ public class GameSystem : MonoBehaviour
 
     private void ShowFinalResult()
     {
-       for (int i = 0; i < numberOfRounds; i++)
-       {
+        GameObject results = GameObject.Find("/Start Room/Results");
+
+        for (int i = 0; i < numberOfRounds; i++)
+        {
             GameObject result = finalResultList[i];
             float zPos = 3.2f - (float)i * 2.1f;
-            Instantiate(result, new Vector3(4.3f, 1.75f, zPos), Quaternion.Euler(0, 90, 0));
-       }
+            Instantiate(result, new Vector3(4.3f, 1f, zPos), Quaternion.Euler(0, 90, 0));
+
+            var renderer = results.transform.GetChild(i).gameObject.GetComponent<Renderer>();
+            if (inspectorDecisionList[i])
+            {
+                renderer.material.SetColor("_Color", Color.green);
+            }
+            else
+            {
+                renderer.material.SetColor("_Color", Color.red);
+            }
+
+            renderer = results.transform.GetChild(i + numberOfRounds).gameObject.GetComponent<Renderer>();
+            if (supervisorDecisionList[i])
+            {
+                renderer.material.SetColor("_Color", Color.green);
+            }
+            else
+            {
+                renderer.material.SetColor("_Color", Color.red);
+            }
+        }
     }
 
     private void HideFinalResult()
     {
-
+        GameObject[] resultLists = GameObject.FindGameObjectsWithTag("Passport UI");
+        if (resultLists.Length != 0)
+        {
+            for (int i = 0; i < resultLists.Length; i++)
+            {
+                Destroy(resultLists[i]);
+            }
+        }
     }
 
     IEnumerator GameReset()
@@ -296,6 +326,8 @@ public class GameSystem : MonoBehaviour
             currentNumberOfinspector = 0;
             currentNumberOfsupervisor = 0;
             currentNumberOftraveller = 0;
+
+            ShowFinalResult();
 
             Message m = new Message();
             if (player.CompareTag("Traveller"))
