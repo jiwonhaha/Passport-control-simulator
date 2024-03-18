@@ -63,10 +63,21 @@ public class GameSystem : MonoBehaviour
     int passportIndex;
 
     List<GameObject> finalResultList = new List<GameObject>();
-    List<bool> inspectorDecisionList = new List<bool>();
-    List<bool> supervisorDecisionList = new List<bool>();
+    private List<bool> inspectorDecisionList = new List<bool>();
+    private List<bool> supervisorDecisionList = new List<bool>();
 
     NetworkContext context;
+
+    public List<bool> GetInspectorDecisionList()
+    {
+        return inspectorDecisionList;
+    }
+
+    // Public method to get the supervisor decision list
+    public List<bool> GetSupervisorDecisionList()
+    {
+        return supervisorDecisionList;
+    }
 
     private void Awake()
     {
