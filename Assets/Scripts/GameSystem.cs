@@ -61,9 +61,7 @@ public class GameSystem : MonoBehaviour
     int currentNumberOfsupervisor = 0;
 
     int token;
-    int passportIndex;
-
-    List<int> passportList = new List<int>();
+    List<int> passportIndices = new List<int>();
 
     List<GameObject> finalResultList = new List<GameObject>();
     List<bool> inspectorDecisionList = new List<bool>();
@@ -95,11 +93,16 @@ public class GameSystem : MonoBehaviour
 
         token = 0;
 
-        // Generate a list of indices that are not in passportList
-        List<int> availableIndices = Enumerable.Range(0, passports.Length).Where(index => !passportList.Contains(index)).ToList();
-                
-        // Select a random index from the available indices
-        int passportIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
+        int count = 0;
+        do
+        {
+            int index = new System.Random().Next(0, passports.Length);
+            if (!passportIndices.Contains(index))
+            {
+                passportIndices.Add(index);
+                count++;
+            }
+        } while (count < numberOfRounds);
     }
 
     private void Update()
@@ -228,31 +231,14 @@ public class GameSystem : MonoBehaviour
 
                 Debug.Log("Start round " + currentRounds);
 
-                SpawnPassport(passportIndex);
-                passportList.Add(passportIndex);
-                ActivateStory(passportIndex);
+                SpawnPassport(passportIndices[currentRounds-1]);
+                ActivateStory(passportIndices[currentRounds-1]);
 
                 HideFinalResult();
 
                 Message m = new Message();
-                if (player.CompareTag("Traveller"))
-                {
-                    // Generate a list of indices that are not in passportList
-                    List<int> availableIndices = Enumerable.Range(0, passports.Length).Where(index => !passportList.Contains(index)).ToList();
-                            
-
-                    // Select a random index from the available indices
-                    int passportIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
-
-                    m.token = 1;
-                    m.passportIndex = passportIndex;
-                    Debug.Log(passportIndex);
-                }
-                else
-                {
-                    m.token = 0;
-                    m.passportIndex = passportIndex;
-                }
+                m.token = token;
+                m.passportIndices = passportIndices;
                 m.totalOftraveller = currentNumberOftraveller;
                 m.totalOfsupervisor = currentNumberOfsupervisor;
                 m.totalOfinspector = currentNumberOfinspector;
@@ -349,9 +335,6 @@ public class GameSystem : MonoBehaviour
             Debug.Log("Game End!");
             isInGame = false;
 
-            player.gameObject.tag = "Player";
-            player.transform.position = lobbyMarker;
-
             currentRounds = 0;
 
             currentNumberOfinspector = 0;
@@ -363,58 +346,49 @@ public class GameSystem : MonoBehaviour
             Message m = new Message();
             if (player.CompareTag("Traveller"))
             {
-                // Generate a list of indices that are not in passportList
-                List<int> availableIndices = Enumerable.Range(0, passports.Length).Where(index => !passportList.Contains(index)).ToList();
-                        
-
-                // Select a random index from the available indices
-                int passportIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
-
                 m.token = 1;
-                m.passportIndex = passportIndex;
-                Debug.Log(passportIndex);
+
+                passportIndices = new List<int>();
+                int count = 0;
+                do
+                {
+                    int index = new System.Random().Next(0, passports.Length);
+                    if (!passportIndices.Contains(index))
+                    {
+                        passportIndices.Add(index);
+                        count++;
+                    }
+                } while (count < numberOfRounds);
             }
             else
             {
                 m.token = 0;
-                m.passportIndex = passportIndex;
+                m.passportIndices = passportIndices;
             }
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
             context.SendJson(m);
+
+            player.gameObject.tag = "Player";
+            player.transform.position = lobbyMarker;
         }
         else
         {
             Debug.Log("Start round " + currentRounds);
-            SpawnPassport(passportIndex);
-            passportList.Add(passportIndex);
-            ActivateStory(passportIndex);
+            SpawnPassport(passportIndices[currentRounds - 1]);
+            ActivateStory(passportIndices[currentRounds - 1]);
 
             Message m = new Message();
             if (player.CompareTag("Traveller"))
             {
-                // Generate a list of indices that are not in passportList
-                List<int> availableIndices = Enumerable.Range(0, passports.Length).Where(index => !passportList.Contains(index)).ToList();
-                        
-
-                // Select a random index from the available indices
-                int passportIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
-
                 m.token = 1;
-                m.passportIndex = passportIndex;
-                Debug.Log("Passport generated with Index: " + passportIndex);
-
-                player.transform.position = travellerMarker;
-                Debug.Log("Traveller marker: " + travellerMarker);
-                Debug.Log("Player position: " + player.transform.position);
-
             }
             else
             {
                 m.token = 0;
-                m.passportIndex = passportIndex;
             }
+            m.passportIndices = passportIndices;
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
@@ -437,7 +411,7 @@ public class GameSystem : MonoBehaviour
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
             m.token = 1;
-            m.passportIndex = passportIndex;
+            m.passportIndices = passportIndices;
             context.SendJson(m);
         }
             
@@ -458,7 +432,7 @@ public class GameSystem : MonoBehaviour
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
             m.token = 0;
-            m.passportIndex = passportIndex;
+            m.passportIndices = passportIndices;
             context.SendJson(m);
         }
     }
@@ -478,7 +452,7 @@ public class GameSystem : MonoBehaviour
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
             m.token = 0;
-            m.passportIndex = passportIndex;
+            m.passportIndices = passportIndices;
             context.SendJson(m);
         }
     }
@@ -490,7 +464,7 @@ public class GameSystem : MonoBehaviour
         public int totalOfsupervisor;
 
         public int token;
-        public int passportIndex;
+        public List<int> passportIndices;
     }
 
     public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
@@ -503,7 +477,7 @@ public class GameSystem : MonoBehaviour
 
         if (token < Message.token)
         {
-            passportIndex = Message.passportIndex;
+            passportIndices = Message.passportIndices;
         }
     }
 
