@@ -62,22 +62,13 @@ public class GameSystem : MonoBehaviour
     int token;
     int passportIndex;
 
+    List<int> passportList = new List<int>();
+
     List<GameObject> finalResultList = new List<GameObject>();
-    private List<bool> inspectorDecisionList = new List<bool>();
-    private List<bool> supervisorDecisionList = new List<bool>();
+    List<bool> inspectorDecisionList = new List<bool>();
+    List<bool> supervisorDecisionList = new List<bool>();
 
     NetworkContext context;
-
-    public List<bool> GetInspectorDecisionList()
-    {
-        return inspectorDecisionList;
-    }
-
-    // Public method to get the supervisor decision list
-    public List<bool> GetSupervisorDecisionList()
-    {
-        return supervisorDecisionList;
-    }
 
     private void Awake()
     {
@@ -102,7 +93,14 @@ public class GameSystem : MonoBehaviour
         supervisorHasChosen = false;
 
         token = 0;
-        passportIndex = new System.Random().Next(0, passports.Length);
+
+        bool indexIsExcluded;
+        int passportIndex;
+        do
+        {
+            passportIndex = new System.Random().Next(0, passports.Length);
+            indexIsExcluded = passportList.Contains(passportIndex);
+        } while (indexIsExcluded);
     }
 
     private void Update()
@@ -232,6 +230,7 @@ public class GameSystem : MonoBehaviour
                 Debug.Log("Start round " + currentRounds);
 
                 SpawnPassport(passportIndex);
+                passportList.Add(passportIndex);
                 ActivateStory(passportIndex);
 
                 HideFinalResult();
@@ -239,7 +238,13 @@ public class GameSystem : MonoBehaviour
                 Message m = new Message();
                 if (player.CompareTag("Traveller"))
                 {
-                    passportIndex = new System.Random().Next(0, passports.Length);
+                    bool indexIsExcluded;
+                    int passportIndex;
+                    do
+                    {
+                        passportIndex = new System.Random().Next(0, passports.Length);
+                        indexIsExcluded = passportList.Contains(passportIndex);
+                    } while (indexIsExcluded);
 
                     m.token = 1;
                     m.passportIndex = passportIndex;
@@ -360,7 +365,13 @@ public class GameSystem : MonoBehaviour
             Message m = new Message();
             if (player.CompareTag("Traveller"))
             {
-                passportIndex = new System.Random().Next(0, passports.Length);
+                bool indexIsExcluded;
+                int passportIndex;
+                do
+                {
+                    passportIndex = new System.Random().Next(0, passports.Length);
+                    indexIsExcluded = passportList.Contains(passportIndex);
+                } while (indexIsExcluded);
 
                 m.token = 1;
                 m.passportIndex = passportIndex;
@@ -380,12 +391,19 @@ public class GameSystem : MonoBehaviour
         {
             Debug.Log("Start round " + currentRounds);
             SpawnPassport(passportIndex);
+            passportList.Add(passportIndex);
             ActivateStory(passportIndex);
 
             Message m = new Message();
             if (player.CompareTag("Traveller"))
             {
-                passportIndex = new System.Random().Next(0, passports.Length);
+                bool indexIsExcluded;
+                int passportIndex;
+                do
+                {
+                    passportIndex = new System.Random().Next(0, passports.Length);
+                    indexIsExcluded = passportList.Contains(passportIndex);
+                } while (indexIsExcluded);
 
                 m.token = 1;
                 m.passportIndex = passportIndex;
