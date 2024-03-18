@@ -99,7 +99,7 @@ public class GameSystem : MonoBehaviour
         List<int> availableIndices = Enumerable.Range(0, passports.Length).Where(index => !passportList.Contains(index)).ToList();
                 
         // Select a random index from the available indices
-        int randomIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
+        int passportIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
     }
 
     private void Update()
@@ -242,7 +242,7 @@ public class GameSystem : MonoBehaviour
                             
 
                     // Select a random index from the available indices
-                    int randomIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
+                    int passportIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
 
                     m.token = 1;
                     m.passportIndex = passportIndex;
@@ -368,7 +368,7 @@ public class GameSystem : MonoBehaviour
                         
 
                 // Select a random index from the available indices
-                int randomIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
+                int passportIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
 
                 m.token = 1;
                 m.passportIndex = passportIndex;
@@ -399,7 +399,7 @@ public class GameSystem : MonoBehaviour
                         
 
                 // Select a random index from the available indices
-                int randomIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
+                int passportIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
 
                 m.token = 1;
                 m.passportIndex = passportIndex;
