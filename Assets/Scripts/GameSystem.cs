@@ -33,6 +33,8 @@ public class GameSystem : MonoBehaviour
 
     [Header("Passport List")]
     [SerializeField] GameObject[] passports;
+    [SerializeField] GameObject[] passportUIs;
+    [SerializeField] GameObject[] stories;
 
     [Header("Teleportation Marker")]
     [SerializeField] Vector3 travellerMarker;
@@ -40,16 +42,13 @@ public class GameSystem : MonoBehaviour
     [SerializeField] Vector3 supervisorMarker;
     [SerializeField] Vector3 lobbyMarker;
     [SerializeField] Vector3 passportSpawnPoint = new Vector3(7.5f, 0.75f, 30.0f);
+    [SerializeField] Vector3 storySpawnPoint = new Vector3(5.5f, 1.0f, 33.0f);
 
     [Header("Settings")]
     [SerializeField] int numberOfRounds;
     [SerializeField] int numberOfTravellers;
     [SerializeField] int numberOfInspectors;
     [SerializeField] int numberOfSupervisors;
-
-    [Header("Passenger Stories")]
-    [SerializeField] GameObject[] Stories;
-    private List<GameObject> instantiatedStoryElements = new List<GameObject>();
 
 
     public int currentRounds;
@@ -231,8 +230,7 @@ public class GameSystem : MonoBehaviour
 
                 Debug.Log("Start round " + currentRounds);
 
-                SpawnPassport(passportIndices[currentRounds-1]);
-                ActivateStory(passportIndices[currentRounds-1]);
+                SpawnPassport(passportIndices[currentRounds - 1]);
 
                 HideFinalResult();
 
@@ -254,7 +252,10 @@ public class GameSystem : MonoBehaviour
     private void SpawnPassport(int randomIndex)
     {
         GameObject selectedPassport = passports[randomIndex];
+        GameObject selectedStory = stories[randomIndex];
+
         Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
+        Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, 0, 0));
     }
 
     private void ShowFinalResult()
@@ -302,22 +303,15 @@ public class GameSystem : MonoBehaviour
     }
 
     IEnumerator GameReset()
-    { 
+    {
 
         yield return new WaitForSeconds(3);
 
         GameObject passport = GameObject.FindGameObjectsWithTag("Passport")[0];
         Destroy(passport);
-        foreach (GameObject story in instantiatedStoryElements)
-        {
-            Destroy(story);
-        
-        }
-
-        instantiatedStoryElements.Clear(); 
 
         GameObject[] screens = GameObject.FindGameObjectsWithTag("Passport UI");
-        for(int i = 0; i < screens.Length; i++)
+        for (int i = 0; i < screens.Length; i++)
         {
             Destroy(screens[i]);
         }
@@ -377,7 +371,6 @@ public class GameSystem : MonoBehaviour
         {
             Debug.Log("Start round " + currentRounds);
             SpawnPassport(passportIndices[currentRounds - 1]);
-            ActivateStory(passportIndices[currentRounds - 1]);
 
             Message m = new Message();
             if (player.CompareTag("Traveller"))
@@ -414,9 +407,9 @@ public class GameSystem : MonoBehaviour
             m.passportIndices = passportIndices;
             context.SendJson(m);
         }
-            
+
     }
-    
+
     public void TagSupervisor()
     {
         if (numberOfSupervisors > currentNumberOfsupervisor)
@@ -478,30 +471,6 @@ public class GameSystem : MonoBehaviour
         if (token < Message.token)
         {
             passportIndices = Message.passportIndices;
-        }
-    }
-
-    private void ActivateStory(int index)
-    {
-        // Deactivate all UI elements before activating the specified one
-        foreach (GameObject story in Stories)
-        {
-            if (story != null)
-            {
-                story.SetActive(false);
-            }
-        }
-
-        // Check if the index is within the range of uiElements array and activate the UI element
-        if (index >= 0 && index < Stories.Length && Stories[index] != null)
-        {
-            GameObject selectedStory = Stories[index];
-            selectedStory.SetActive(true);
-
-            // Spawn the selected GameObject
-            GameObject story = Instantiate(selectedStory, new Vector3(5.5f, 1.0f, 33.0f), Quaternion.Euler(0, 0, 0));
-            instantiatedStoryElements.Add(story);
-
         }
     }
 

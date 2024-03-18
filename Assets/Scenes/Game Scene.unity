@@ -5937,6 +5937,111 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &521536052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 521536053}
+  - component: {fileID: 521536056}
+  - component: {fileID: 521536055}
+  - component: {fileID: 521536054}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &521536053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521536052}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.5, y: 0.434, z: -2}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1328978619}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &521536054
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521536052}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &521536055
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521536052}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &521536056
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521536052}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &578682056
 GameObject:
   m_ObjectHideFlags: 0
@@ -6324,7 +6429,7 @@ Transform:
   m_GameObject: {fileID: 618449329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.28, y: 0.68, z: 29.91}
+  m_LocalPosition: {x: 18, y: 0, z: 19.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11841,21 +11946,28 @@ MonoBehaviour:
   - {fileID: 4698405591580209508, guid: c4d5643d647e04a68aec5ccae1aa7b72, type: 3}
   - {fileID: 4647688324317234373, guid: d102c8d8dc5474fd09988cd62c78ab12, type: 3}
   - {fileID: 7222693376984029827, guid: 236dd965d3f8e4f55acb8fb3c5234568, type: 3}
-  travellerMarker: {x: 4, y: 0, z: 30}
-  inspectorMarker: {x: -6, y: 0, z: 26.5}
-  supervisorMarker: {x: -6, y: 0, z: 33}
-  lobbyMarker: {x: 0, y: 0, z: 0}
-  passportSpawnPoint: {x: 7.5, y: 0.75, z: 30}
-  numberOfRounds: 4
-  numberOfTravellers: 1
-  numberOfInspectors: 1
-  numberOfSupervisors: 1
-  Stories:
+  passportUIs:
+  - {fileID: 5166464527993210395, guid: fbec2feead0f34ce49b9ee48b207e25c, type: 3}
+  - {fileID: 7219335242106916032, guid: e6635fdce01c948659c38c43d1041384, type: 3}
+  - {fileID: 4979218292542567917, guid: 925aff0b237794a0e82751f8b66a4634, type: 3}
+  - {fileID: 5680984015433191755, guid: b799166f7487e4605b1e11e217c035b1, type: 3}
+  - {fileID: 3975596336044023418, guid: b4e9db56ce7e547f3b218f1f49adc98b, type: 3}
+  stories:
   - {fileID: 2768795049353033739, guid: 00e0e667eb856468e8e0470d6363a85a, type: 3}
   - {fileID: 2043202991290655534, guid: eecdbe2d250a84a7fa1476f5233698cf, type: 3}
   - {fileID: 312400248366556852, guid: 6ae7d64193a774198a20d66ad9810b94, type: 3}
   - {fileID: 5636290925985386441, guid: 729a56cdcc8dd45f5989b55904a672b3, type: 3}
   - {fileID: 1529601546387485648, guid: 7a732a87d44f34f6183c27341cdd748b, type: 3}
+  travellerMarker: {x: 22, y: 0, z: 18}
+  inspectorMarker: {x: 16.5, y: 0, z: 31.75}
+  supervisorMarker: {x: 24.5, y: 0, z: 31.75}
+  lobbyMarker: {x: 0, y: 0, z: 0}
+  passportSpawnPoint: {x: 19.6, y: 0.5, z: 19.4}
+  storySpawnPoint: {x: 18, y: 1, z: 19.5}
+  numberOfRounds: 4
+  numberOfTravellers: 1
+  numberOfInspectors: 1
+  numberOfSupervisors: 1
   currentRounds: 0
 --- !u!4 &1077473987
 Transform:
@@ -17449,6 +17561,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a128375e512eb4ffeb0d55eb37be66c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7259354527723311401}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a128375e512eb4ffeb0d55eb37be66c9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 521536053}
     - targetCorrespondingSourceObject: {fileID: 2930757132519334665, guid: a128375e512eb4ffeb0d55eb37be66c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 35534782}
