@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using System;
 using Ubiq.Messaging;
@@ -97,10 +98,8 @@ public class GameSystem : MonoBehaviour
         // Generate a list of indices that are not in passportList
         List<int> availableIndices = Enumerable.Range(0, passports.Length).Where(index => !passportList.Contains(index)).ToList();
                 
-        Random rnd = new Random();
-
         // Select a random index from the available indices
-        int randomIndex = availableIndices[rnd.Next(availableIndices.Count)];
+        int randomIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
     }
 
     private void Update()
@@ -241,10 +240,9 @@ public class GameSystem : MonoBehaviour
                     // Generate a list of indices that are not in passportList
                     List<int> availableIndices = Enumerable.Range(0, passports.Length).Where(index => !passportList.Contains(index)).ToList();
                             
-                    Random rnd = new Random();
 
                     // Select a random index from the available indices
-                    int randomIndex = availableIndices[rnd.Next(availableIndices.Count)];
+                    int randomIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
 
                     m.token = 1;
                     m.passportIndex = passportIndex;
@@ -368,10 +366,9 @@ public class GameSystem : MonoBehaviour
                 // Generate a list of indices that are not in passportList
                 List<int> availableIndices = Enumerable.Range(0, passports.Length).Where(index => !passportList.Contains(index)).ToList();
                         
-                Random rnd = new Random();
 
                 // Select a random index from the available indices
-                int randomIndex = availableIndices[rnd.Next(availableIndices.Count)];
+                int randomIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
 
                 m.token = 1;
                 m.passportIndex = passportIndex;
@@ -400,10 +397,9 @@ public class GameSystem : MonoBehaviour
                 // Generate a list of indices that are not in passportList
                 List<int> availableIndices = Enumerable.Range(0, passports.Length).Where(index => !passportList.Contains(index)).ToList();
                         
-                Random rnd = new Random();
 
                 // Select a random index from the available indices
-                int randomIndex = availableIndices[rnd.Next(availableIndices.Count)];
+                int randomIndex = availableIndices[new System.Random().Next(availableIndices.Count)];
 
                 m.token = 1;
                 m.passportIndex = passportIndex;
