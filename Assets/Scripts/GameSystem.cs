@@ -45,12 +45,16 @@ public class GameSystem : MonoBehaviour
     [SerializeField] Vector3 lobbyMarker;
     [SerializeField] Vector3 passportSpawnPoint = new Vector3(7.5f, 0.75f, 30.0f);
     [SerializeField] Vector3 storySpawnPoint = new Vector3(5.5f, 1.0f, 33.0f);
+    [SerializeField] Vector3 FResultSpawnPoint;
 
     [Header("Settings")]
     [SerializeField] int numberOfRounds;
     [SerializeField] int numberOfTravellers;
     [SerializeField] int numberOfInspectors;
     [SerializeField] int numberOfSupervisors;
+
+    [Header("Result UI")]
+    [SerializeField] GameObject[] ResultUI;
 
 
     public int currentRounds;
@@ -255,7 +259,40 @@ public class GameSystem : MonoBehaviour
 
     private void ShowFinalResult()
     {
+        if (supervisorDecisionList.Count != inspectorDecisionList.Count || supervisorDecisionList.Count != passportIndices.Count)
+        {
+            Debug.LogError("The lists must have the same length.");
+            return;
+        }
         
+        Vector3 FResultSpawnPoint = new Vector3(4.749f, 1.0f, 3.0f);
+        Vector3 FAnsSpawnPoint = new Vector3(4.74f, 1.0f, 3.0f);
+
+        for (int i = 0; i < supervisorDecisionList.Count; i++)
+        {
+            GameObject selectedPassport = passports[passportIndices[i]];
+            GameObject selectedAnswer = passportAnswers[passportIndices[i]];
+
+            if (supervisorDecisionList[i] == false){
+               GameObject FaildUI = Instantiate(ResultUI[0], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
+               ResultUIController uiController = FaildUI.GetComponent<ResultUIController>();
+               uiController.Round = "Round " + i;
+               uiController.Inspector = "Inspector Decision: " + inspectorDecisionList[i].ToString();
+               Instantiate(ResultUI[0], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
+            }
+            else{
+                GameObject SucceedUI = Instantiate(ResultUI[1], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
+                ResultUIController uiController = SucceedUI.GetComponent<ResultUIController>();
+               uiController.Round = "Round " + i;
+               uiController.Inspector = "Inspector Decision: " + inspectorDecisionList[i].ToString();
+                Instantiate(ResultUI[0], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
+            }
+
+            Instantiate(selectedAnswer, FAnsSpawnPoint, Quaternion.Euler(0, 90, 0));
+            FResultSpawnPoint.z -= 1.0f;
+            FAnsSpawnPoint.z -= 1.0f; 
+        }
+    
     }
 
     private void HideFinalResult()
@@ -300,7 +337,7 @@ public class GameSystem : MonoBehaviour
             currentNumberOfsupervisor = 0;
             currentNumberOftraveller = 0;
 
-            //ShowFinalResult();
+            ShowFinalResult();
 
             Message m = new Message();
             if (player.CompareTag("Traveller"))

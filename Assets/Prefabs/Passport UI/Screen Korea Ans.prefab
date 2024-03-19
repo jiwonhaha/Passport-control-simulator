@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 4545462748115860675}
   m_Layer: 5
   m_Name: Screen Korea Ans
-  m_TagString: Untagged
+  m_TagString: Passport UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
