@@ -11,8 +11,6 @@ public class Passport : MonoBehaviour
     NetworkContext context;
     Transform parent;
 
-    int token;
-
 
     // Does this instance of the Component control the transforms for everyone?
     public bool isOwner;
@@ -25,20 +23,20 @@ public class Passport : MonoBehaviour
         interactable.firstSelectEntered.AddListener(OnPickedUp);
         interactable.lastSelectExited.AddListener(OnDropped);
         context = NetworkScene.Register(this);
-        token = Random.Range(1, 10000);
-        isOwner = true;
+        isOwner = false;
     }
 
     void OnPickedUp(SelectEnterEventArgs ev)
     {
         Debug.Log("Picked up");
-        TakeOwnership();
+        isOwner = true;
     }
 
     void OnDropped(SelectExitEventArgs ev)
     {
         Debug.Log("Dropped");
         transform.parent = parent;
+
         isOwner = false;
         GetComponent<Rigidbody>().isKinematic = false;
     }
@@ -46,13 +44,6 @@ public class Passport : MonoBehaviour
     private struct Message
     {
         public Vector3 position;
-        public int token;
-    }
-
-    void TakeOwnership()
-    {
-        token++;
-        isOwner = true;
     }
 
     // Update is called once per frame
@@ -62,7 +53,6 @@ public class Passport : MonoBehaviour
         {
             Message m = new Message();
             m.position = this.transform.localPosition;
-            m.token = token;
             context.SendJson(m);
         }
     }
@@ -70,10 +60,9 @@ public class Passport : MonoBehaviour
     public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
         var message = m.FromJson<Message>();
-        if (message.token > token)
+        if (!isOwner)
         {
             this.transform.localPosition = message.position;
-            token = message.token;
             GetComponent<Rigidbody>().isKinematic = true;
         }
     }
