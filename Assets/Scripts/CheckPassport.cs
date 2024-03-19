@@ -6,6 +6,7 @@ public class CheckPassport : MonoBehaviour
 {
     [Header("Passport and UI Elements")]
     [SerializeField] private GameObject[] uiElements;
+    [SerializeField] private GameObject[] answerElements;
     private List<GameObject> instantiatedUIElements = new List<GameObject>();
 
     [Header("Screen Monitor")]
@@ -79,14 +80,16 @@ public class CheckPassport : MonoBehaviour
         // Check if the index is within the range of uiElements array and activate the UI element
         if (index >= 0 && index < uiElements.Length && uiElements[index] != null)
         {
-            GameObject selectedUI = uiElements[index];
-            selectedUI.SetActive(true);
+            GameObject selectedUIinspector = uiElements[index];
+            GameObject selectedUIsupervisor = answerElements[index];
+            selectedUIinspector.SetActive(true);
+            selectedUIsupervisor.SetActive(true);
 
             // Spawn the selected GameObject
             // Inspector monitor
-            GameObject instantiatedUI1 = Instantiate(selectedUI, inspectorMonitor, Quaternion.Euler(0, 0, 0));
+            GameObject instantiatedUI1 = Instantiate(selectedUIinspector, inspectorMonitor, Quaternion.Euler(0, 0, 0));
             // Supervisor monitor
-            GameObject instantiatedUI2 = Instantiate(selectedUI, supervisorMonitor, Quaternion.Euler(0, 90, 0));
+            GameObject instantiatedUI2 = Instantiate(selectedUIsupervisor, supervisorMonitor, Quaternion.Euler(0, 90, 0));
             instantiatedUIElements.Add(instantiatedUI1);
             instantiatedUIElements.Add(instantiatedUI2);
 

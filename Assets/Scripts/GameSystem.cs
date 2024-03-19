@@ -34,7 +34,8 @@ public class GameSystem : MonoBehaviour
 
     [Header("Passport List")]
     [SerializeField] GameObject[] passports;
-    [SerializeField] GameObject[] passportUIs;
+    [SerializeField] GameObject[] passportScreens;
+    [SerializeField] GameObject[] passportAnswers;
     [SerializeField] GameObject[] stories;
 
     [Header("Teleportation Marker")]
@@ -62,8 +63,6 @@ public class GameSystem : MonoBehaviour
 
     int token;
     List<int> passportIndices = new List<int>();
-
-    List<GameObject> finalResultList = new List<GameObject>();
     List<bool> inspectorDecisionList = new List<bool>();
     List<bool> supervisorDecisionList = new List<bool>();
 
@@ -156,15 +155,6 @@ public class GameSystem : MonoBehaviour
                 inspectorHasChosen = false;
                 supervisorHasChosen = false;
 
-                GameObject[] resultLists = GameObject.FindGameObjectsWithTag("Passport UI");
-                if (resultLists.Length != 0)
-                {
-                    for (int i = 0; i < resultLists.Length; i++)
-                    {
-                        finalResultList.Add(resultLists[i].gameObject);
-                    }
-                }
-
                 StartCoroutine(GameReset());
             }
         }
@@ -244,7 +234,7 @@ public class GameSystem : MonoBehaviour
                 m.totalOfinspector = currentNumberOfinspector;
                 context.SendJson(m);
 
-                finalResultList = new List<GameObject>();
+                passportIndices = new List<int>();
                 inspectorDecisionList = new List<bool>();
                 supervisorDecisionList = new List<bool>();
             }
@@ -257,52 +247,21 @@ public class GameSystem : MonoBehaviour
         GameObject selectedStory = stories[randomIndex];
 
         Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
+
+        selectedStory.SetActive(true);
         Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, 90, 0));
+
     }
 
-    //private void ShowFinalResult()
-    //{
-    //    GameObject results = GameObject.Find("/Start Room/Results");
+    private void ShowFinalResult()
+    {
+        
+    }
 
-    //    for (int i = 0; i < numberOfRounds; i++)
-    //    {
-    //        GameObject result = finalResultList[i];
-    //        float zPos = 3.2f - (float)i * 2.1f;
-    //        Instantiate(result, new Vector3(4.3f, 1f, zPos), Quaternion.Euler(0, 90, 0));
-
-    //        var renderer = results.transform.GetChild(i).gameObject.GetComponent<Renderer>();
-    //        if (inspectorDecisionList[i])
-    //        {
-    //            renderer.material.SetColor("_Color", Color.green);
-    //        }
-    //        else
-    //        {
-    //            renderer.material.SetColor("_Color", Color.red);
-    //        }
-
-    //        renderer = results.transform.GetChild(i + numberOfRounds).gameObject.GetComponent<Renderer>();
-    //        if (supervisorDecisionList[i])
-    //        {
-    //            renderer.material.SetColor("_Color", Color.green);
-    //        }
-    //        else
-    //        {
-    //            renderer.material.SetColor("_Color", Color.red);
-    //        }
-    //    }
-    //}
-
-    //private void HideFinalResult()
-    //{
-    //    GameObject[] resultLists = GameObject.FindGameObjectsWithTag("Passport UI");
-    //    if (resultLists.Length != 0)
-    //    {
-    //        for (int i = 0; i < resultLists.Length; i++)
-    //        {
-    //            Destroy(resultLists[i]);
-    //        }
-    //    }
-    //}
+    private void HideFinalResult()
+    {
+        
+    }
 
     IEnumerator GameReset()
     {
@@ -321,7 +280,7 @@ public class GameSystem : MonoBehaviour
             Destroy(screens[i]);
         }
 
-        cage.transform.position = new Vector3(-6f, 3f, 30f);
+        cage.transform.localPosition = new Vector3(-4.5f, 4f, 10f);
         cage.SetActive(false);
 
         leftDoorGate.SetActive(true);
