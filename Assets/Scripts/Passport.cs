@@ -12,7 +12,7 @@ public class Passport : MonoBehaviour
     Transform parent;
 
 
-    // Does this instance of the Component control the transforms for everyone?
+    public bool isHolding;
     public bool isOwner;
 
     // Start is called before the first frame update
@@ -28,32 +28,52 @@ public class Passport : MonoBehaviour
 
     void OnPickedUp(SelectEnterEventArgs ev)
     {
-        Debug.Log("Picked up");
         isOwner = true;
+        isHolding = true;
+
+        Message m = new Message();
+        m.position = this.transform.localPosition;
+        m.isHolding = isHolding;
+        context.SendJson(m);
     }
 
     void OnDropped(SelectExitEventArgs ev)
     {
-        Debug.Log("Dropped");
         transform.parent = parent;
-
         isOwner = false;
-        GetComponent<Rigidbody>().isKinematic = false;
+        isHolding = false;
+
+        Message m = new Message();
+        m.position = this.transform.localPosition;
+        m.isHolding = isHolding;
+        context.SendJson(m);
+        
     }
 
     private struct Message
     {
         public Vector3 position;
+        public bool isHolding;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isOwner)
         {
             Message m = new Message();
             m.position = this.transform.localPosition;
+            m.isHolding = isHolding;
             context.SendJson(m);
+        }
+
+        if (isHolding)
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+        else
+        {
+            GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 
@@ -63,7 +83,11 @@ public class Passport : MonoBehaviour
         if (!isOwner)
         {
             this.transform.localPosition = message.position;
-            GetComponent<Rigidbody>().isKinematic = true;
+
+            if (message.isHolding != isHolding)
+            {
+                isHolding = message.isHolding;
+            }
         }
     }
 }
