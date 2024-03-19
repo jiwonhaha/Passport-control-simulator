@@ -275,18 +275,19 @@ public class GameSystem : MonoBehaviour
             GameObject selectedPassport = passports[passportIndices[i]];
             GameObject selectedAnswer = passportAnswers[passportIndices[i]];
 
+            int r = i + 1;
             if (supervisorDecisionList[i] == false){
                 GameObject FaildUI = Instantiate(ResultUI[0], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
                 instantiatedObjects.Add(FaildUI);
                 ResultUIController uiController = FaildUI.GetComponent<ResultUIController>();
-                uiController.Round = "Round " + i+1;
+                uiController.Round = "Round " + r;
                 uiController.Inspector = "Inspector Decision: " + (inspectorDecisionList[i] ? "Pass" : "Reject");
             }
             else{
                 GameObject SucceedUI = Instantiate(ResultUI[1], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
                 instantiatedObjects.Add(SucceedUI);
                 ResultUIController uiController = SucceedUI.GetComponent<ResultUIController>();
-                uiController.Round = "Round " + i+1;
+                uiController.Round = "Round " + r;
                 uiController.Inspector = "Inspector Decision: " + (inspectorDecisionList[i] ? "Pass" : "Reject");
             }
 
@@ -301,9 +302,9 @@ public class GameSystem : MonoBehaviour
     private void HideFinalResult()
     {
         foreach (GameObject obj in instantiatedObjects)
-    {
-        Destroy(obj);
-    }
+        {
+            Destroy(obj);
+        }
     instantiatedObjects.Clear();
         
     }
