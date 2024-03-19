@@ -8,6 +8,9 @@ public class CheckPassport : MonoBehaviour
     [SerializeField] private GameObject[] uiElements;
     private List<GameObject> instantiatedUIElements = new List<GameObject>();
 
+    [Header("Screen Monitor")]
+    [SerializeField] Vector3 inspectorMonitor;
+    [SerializeField] Vector3 supervisorMonitor;
 
     void Start()
     {
@@ -81,9 +84,9 @@ public class CheckPassport : MonoBehaviour
 
             // Spawn the selected GameObject
             // Inspector monitor
-            GameObject instantiatedUI1 = Instantiate(selectedUI, new Vector3(-5.365f, 1.079f, 28.045f), Quaternion.Euler(0, 0, 0));
+            GameObject instantiatedUI1 = Instantiate(selectedUI, inspectorMonitor, Quaternion.Euler(0, 0, 0));
             // Supervisor monitor
-            GameObject instantiatedUI2 = Instantiate(selectedUI, new Vector3(-5.442f, 1.077f, 31.999f), Quaternion.Euler(0, 180, 0));
+            GameObject instantiatedUI2 = Instantiate(selectedUI, supervisorMonitor, Quaternion.Euler(0, 90, 0));
             instantiatedUIElements.Add(instantiatedUI1);
             instantiatedUIElements.Add(instantiatedUI2);
 

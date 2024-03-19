@@ -4,11 +4,15 @@ using Ubiq.Messaging;
 
 public class PassActive : MonoBehaviour
 {
-    public XRBaseInteractable xrButton; // The XR button or interactable object
 
+    [System.NonSerialized]
     public bool hasChosenChoice = false;
 
     NetworkContext context;
+
+    [Header("XR Simple Interactable")]
+    [SerializeField]
+    XRBaseInteractable xrButton; // The XR button or interactable object
 
     [Header("Main Game Control")]
     [SerializeField] GameSystem gameSystem;
@@ -16,6 +20,7 @@ public class PassActive : MonoBehaviour
     private void Start()
     {
         context = NetworkScene.Register(this);
+        xrButton = this.gameObject.GetComponent<XRSimpleInteractable>();
     }
 
     private void Update()

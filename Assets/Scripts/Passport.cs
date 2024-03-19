@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Ubiq.Messaging;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -9,6 +10,8 @@ public class Passport : MonoBehaviour
     XRGrabInteractable interactable;
     NetworkContext context;
     Transform parent;
+
+    int token;
 
 
     // Does this instance of the Component control the transforms for everyone?
@@ -22,13 +25,14 @@ public class Passport : MonoBehaviour
         interactable.firstSelectEntered.AddListener(OnPickedUp);
         interactable.lastSelectExited.AddListener(OnDropped);
         context = NetworkScene.Register(this);
-        isOwner = false;
+        token = Random.Range(1, 10000);
+        isOwner = true;
     }
 
     void OnPickedUp(SelectEnterEventArgs ev)
     {
         Debug.Log("Picked up");
-        isOwner = true;
+        TakeOwnership();
     }
 
     void OnDropped(SelectExitEventArgs ev)
@@ -36,12 +40,19 @@ public class Passport : MonoBehaviour
         Debug.Log("Dropped");
         transform.parent = parent;
         isOwner = false;
-
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 
     private struct Message
     {
         public Vector3 position;
+        public int token;
+    }
+
+    void TakeOwnership()
+    {
+        token++;
+        isOwner = true;
     }
 
     // Update is called once per frame
@@ -51,6 +62,7 @@ public class Passport : MonoBehaviour
         {
             Message m = new Message();
             m.position = this.transform.localPosition;
+            m.token = token;
             context.SendJson(m);
         }
     }
@@ -58,9 +70,11 @@ public class Passport : MonoBehaviour
     public void ProcessMessage(ReferenceCountedSceneGraphMessage m)
     {
         var message = m.FromJson<Message>();
-        if (!isOwner)
+        if (message.token > token)
         {
             this.transform.localPosition = message.position;
+            token = message.token;
+            GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }

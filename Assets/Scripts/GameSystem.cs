@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
-using System;
 using Ubiq.Messaging;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +12,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField] GameObject deviceSimulator;
 
     [Header("Game Simulation")]
+    [System.NonSerialized]
     public bool isInGame;
     public bool isGameReset;
 
@@ -28,7 +28,8 @@ public class GameSystem : MonoBehaviour
     [SerializeField] GameObject supervisorRejectButton;
 
     [Header("Scene Objects")]
-    [SerializeField] GameObject doorGate;
+    [SerializeField] GameObject leftDoorGate;
+    [SerializeField] GameObject rightDoorGate;
     [SerializeField] GameObject cage;
 
     [Header("Passport List")]
@@ -120,7 +121,8 @@ public class GameSystem : MonoBehaviour
                 {
                     Debug.Log("Round: " + currentRounds + ", inspector chose passed!");
                     inspectorDecisionList.Add(true);
-                    doorGate.SetActive(false);
+                    leftDoorGate.SetActive(false);
+                    rightDoorGate.SetActive(false);
                     inspectorHasChosen = true;
                 }
                 if (inspectorReject)
@@ -232,7 +234,7 @@ public class GameSystem : MonoBehaviour
 
                 SpawnPassport(passportIndices[currentRounds - 1]);
 
-                HideFinalResult();
+                //HideFinalResult();
 
                 Message m = new Message();
                 m.token = token;
@@ -255,52 +257,52 @@ public class GameSystem : MonoBehaviour
         GameObject selectedStory = stories[randomIndex];
 
         Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
-        Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, 0, 0));
+        Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, 90, 0));
     }
 
-    private void ShowFinalResult()
-    {
-        GameObject results = GameObject.Find("/Start Room/Results");
+    //private void ShowFinalResult()
+    //{
+    //    GameObject results = GameObject.Find("/Start Room/Results");
 
-        for (int i = 0; i < numberOfRounds; i++)
-        {
-            GameObject result = finalResultList[i];
-            float zPos = 3.2f - (float)i * 2.1f;
-            Instantiate(result, new Vector3(4.3f, 1f, zPos), Quaternion.Euler(0, 90, 0));
+    //    for (int i = 0; i < numberOfRounds; i++)
+    //    {
+    //        GameObject result = finalResultList[i];
+    //        float zPos = 3.2f - (float)i * 2.1f;
+    //        Instantiate(result, new Vector3(4.3f, 1f, zPos), Quaternion.Euler(0, 90, 0));
 
-            var renderer = results.transform.GetChild(i).gameObject.GetComponent<Renderer>();
-            if (inspectorDecisionList[i])
-            {
-                renderer.material.SetColor("_Color", Color.green);
-            }
-            else
-            {
-                renderer.material.SetColor("_Color", Color.red);
-            }
+    //        var renderer = results.transform.GetChild(i).gameObject.GetComponent<Renderer>();
+    //        if (inspectorDecisionList[i])
+    //        {
+    //            renderer.material.SetColor("_Color", Color.green);
+    //        }
+    //        else
+    //        {
+    //            renderer.material.SetColor("_Color", Color.red);
+    //        }
 
-            renderer = results.transform.GetChild(i + numberOfRounds).gameObject.GetComponent<Renderer>();
-            if (supervisorDecisionList[i])
-            {
-                renderer.material.SetColor("_Color", Color.green);
-            }
-            else
-            {
-                renderer.material.SetColor("_Color", Color.red);
-            }
-        }
-    }
+    //        renderer = results.transform.GetChild(i + numberOfRounds).gameObject.GetComponent<Renderer>();
+    //        if (supervisorDecisionList[i])
+    //        {
+    //            renderer.material.SetColor("_Color", Color.green);
+    //        }
+    //        else
+    //        {
+    //            renderer.material.SetColor("_Color", Color.red);
+    //        }
+    //    }
+    //}
 
-    private void HideFinalResult()
-    {
-        GameObject[] resultLists = GameObject.FindGameObjectsWithTag("Passport UI");
-        if (resultLists.Length != 0)
-        {
-            for (int i = 0; i < resultLists.Length; i++)
-            {
-                Destroy(resultLists[i]);
-            }
-        }
-    }
+    //private void HideFinalResult()
+    //{
+    //    GameObject[] resultLists = GameObject.FindGameObjectsWithTag("Passport UI");
+    //    if (resultLists.Length != 0)
+    //    {
+    //        for (int i = 0; i < resultLists.Length; i++)
+    //        {
+    //            Destroy(resultLists[i]);
+    //        }
+    //    }
+    //}
 
     IEnumerator GameReset()
     {
@@ -309,6 +311,9 @@ public class GameSystem : MonoBehaviour
 
         GameObject passport = GameObject.FindGameObjectsWithTag("Passport")[0];
         Destroy(passport);
+
+        GameObject story = GameObject.FindGameObjectsWithTag("Story")[0];
+        Destroy(story);
 
         GameObject[] screens = GameObject.FindGameObjectsWithTag("Passport UI");
         for (int i = 0; i < screens.Length; i++)
@@ -319,7 +324,8 @@ public class GameSystem : MonoBehaviour
         cage.transform.position = new Vector3(-6f, 3f, 30f);
         cage.SetActive(false);
 
-        doorGate.SetActive(true);
+        leftDoorGate.SetActive(true);
+        rightDoorGate.SetActive(true);
 
         isGameReset = false;
 
@@ -335,7 +341,7 @@ public class GameSystem : MonoBehaviour
             currentNumberOfsupervisor = 0;
             currentNumberOftraveller = 0;
 
-            ShowFinalResult();
+            //ShowFinalResult();
 
             Message m = new Message();
             if (player.CompareTag("Traveller"))
@@ -376,6 +382,8 @@ public class GameSystem : MonoBehaviour
             if (player.CompareTag("Traveller"))
             {
                 m.token = 1;
+                player.transform.position = travellerMarker;
+                player.transform.rotation = Quaternion.Euler(0, 90, 0);
             }
             else
             {
@@ -394,6 +402,7 @@ public class GameSystem : MonoBehaviour
         if (numberOfTravellers > currentNumberOftraveller)
         {
             player.transform.position = travellerMarker;
+            player.transform.rotation = Quaternion.Euler(0, 90, 0);
             player.gameObject.tag = "Traveller";
 
             Debug.Log("Player choose traveller role!");
