@@ -277,14 +277,12 @@ public class GameSystem : MonoBehaviour
                ResultUIController uiController = FaildUI.GetComponent<ResultUIController>();
                uiController.Round = "Round " + i;
                uiController.Inspector = "Inspector Decision: " + inspectorDecisionList[i].ToString();
-               Instantiate(ResultUI[0], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
             }
             else{
                 GameObject SucceedUI = Instantiate(ResultUI[1], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
                 ResultUIController uiController = SucceedUI.GetComponent<ResultUIController>();
                uiController.Round = "Round " + i;
                uiController.Inspector = "Inspector Decision: " + inspectorDecisionList[i].ToString();
-                Instantiate(ResultUI[0], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
             }
 
             Instantiate(selectedAnswer, FAnsSpawnPoint, Quaternion.Euler(0, 90, 0));
