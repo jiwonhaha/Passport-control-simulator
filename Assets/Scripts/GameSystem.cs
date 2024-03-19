@@ -476,6 +476,10 @@ public class GameSystem : MonoBehaviour
         if (token < Message.token)
         {
             passportIndices = Message.passportIndices;
+            for (int i = 0; i < 4; i++)
+            {
+                Debug.Log(passportIndices[i]);
+            }
         }
     }
 
