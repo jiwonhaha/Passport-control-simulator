@@ -70,6 +70,9 @@ public class GameSystem : MonoBehaviour
     List<bool> inspectorDecisionList = new List<bool>();
     List<bool> supervisorDecisionList = new List<bool>();
 
+    private List<GameObject> instantiatedObjects = new List<GameObject>();
+
+
     NetworkContext context;
 
     private void Awake()
@@ -273,19 +276,22 @@ public class GameSystem : MonoBehaviour
             GameObject selectedAnswer = passportAnswers[passportIndices[i]];
 
             if (supervisorDecisionList[i] == false){
-               GameObject FaildUI = Instantiate(ResultUI[0], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
-               ResultUIController uiController = FaildUI.GetComponent<ResultUIController>();
-               uiController.Round = "Round " + i;
-               uiController.Inspector = "Inspector Decision: " + inspectorDecisionList[i].ToString();
+                GameObject FaildUI = Instantiate(ResultUI[0], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
+                instantiatedObjects.Add(FaildUI);
+                ResultUIController uiController = FaildUI.GetComponent<ResultUIController>();
+                uiController.Round = "Round " + i+1;
+                uiController.Inspector = "Inspector Decision: " + (inspectorDecisionList[i] ? "Pass" : "Reject");
             }
             else{
                 GameObject SucceedUI = Instantiate(ResultUI[1], FResultSpawnPoint, Quaternion.Euler(0, 90, 0)); 
+                instantiatedObjects.Add(SucceedUI);
                 ResultUIController uiController = SucceedUI.GetComponent<ResultUIController>();
-               uiController.Round = "Round " + i;
-               uiController.Inspector = "Inspector Decision: " + inspectorDecisionList[i].ToString();
+                uiController.Round = "Round " + i+1;
+                uiController.Inspector = "Inspector Decision: " + (inspectorDecisionList[i] ? "Pass" : "Reject");
             }
 
-            Instantiate(selectedAnswer, FAnsSpawnPoint, Quaternion.Euler(0, 90, 0));
+            GameObject answerUI  = Instantiate(selectedAnswer, FAnsSpawnPoint, Quaternion.Euler(0, 90, 0));
+            instantiatedObjects.Add(answerUI);
             FResultSpawnPoint.z -= 2.0f;
             FAnsSpawnPoint.z -= 2.0f; 
         }
@@ -294,6 +300,11 @@ public class GameSystem : MonoBehaviour
 
     private void HideFinalResult()
     {
+        foreach (GameObject obj in instantiatedObjects)
+    {
+        Destroy(obj);
+    }
+    instantiatedObjects.Clear();
         
     }
 
