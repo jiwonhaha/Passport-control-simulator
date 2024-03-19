@@ -238,7 +238,6 @@ public class GameSystem : MonoBehaviour
                 m.totalOfinspector = currentNumberOfinspector;
                 context.SendJson(m);
 
-                passportIndices = new List<int>();
                 inspectorDecisionList = new List<bool>();
                 supervisorDecisionList = new List<bool>();
             }
@@ -476,10 +475,6 @@ public class GameSystem : MonoBehaviour
         if (token < Message.token)
         {
             passportIndices = Message.passportIndices;
-            for (int i = 0; i < 4; i++)
-            {
-                Debug.Log(passportIndices[i]);
-            }
         }
     }
 
