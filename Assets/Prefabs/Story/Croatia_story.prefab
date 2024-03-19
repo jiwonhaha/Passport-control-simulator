@@ -148,7 +148,6 @@ GameObject:
   - component: {fileID: 2520502652109422559}
   - component: {fileID: 3751792400026026745}
   - component: {fileID: 3205756482460264286}
-  - component: {fileID: 685701410137348623}
   m_Layer: 5
   m_Name: Croatia_story
   m_TagString: Story
@@ -243,18 +242,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
---- !u!114 &685701410137348623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5636290925985386441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 955224189952c4345b9e07307ace20ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6994268396781930445
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7688053461851587294}
   - component: {fileID: 6260010036537724106}
   - component: {fileID: 8608995195192213767}
-  - component: {fileID: 6116850415802088705}
   m_Layer: 5
   m_Name: Thai_story
   m_TagString: Story
@@ -107,18 +106,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
---- !u!114 &6116850415802088705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2768795049353033739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 955224189952c4345b9e07307ace20ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3877496614714085060
 GameObject:
   m_ObjectHideFlags: 0
