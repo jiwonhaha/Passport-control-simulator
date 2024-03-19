@@ -288,8 +288,8 @@ public class GameSystem : MonoBehaviour
             }
 
             Instantiate(selectedAnswer, FAnsSpawnPoint, Quaternion.Euler(0, 90, 0));
-            FResultSpawnPoint.z -= 1.0f;
-            FAnsSpawnPoint.z -= 1.0f; 
+            FResultSpawnPoint.z -= 2.0f;
+            FAnsSpawnPoint.z -= 2.0f; 
         }
     
     }
