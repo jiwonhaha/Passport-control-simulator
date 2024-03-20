@@ -168,8 +168,8 @@ public class GameSystem : MonoBehaviour
 
         else
         {
-            // Traveller Button
-            if (currentNumberOftraveller == numberOfTravellers)
+                // Traveller Button
+                if (currentNumberOftraveller == numberOfTravellers)
             {
                 ColorBlock colors = travellerButton.colors;
                 colors.disabledColor = Color.red; // Set the disabled color to red
@@ -404,7 +404,14 @@ public class GameSystem : MonoBehaviour
 
     public void TagTraveller()
     {
-        if (numberOfTravellers > currentNumberOftraveller)
+        GameObject u = GameObject.Find("/Ubiq Network Scene (Demo)/Avatar Manager");
+        int numberOfPlayers = 0;
+        foreach (Transform child in u.transform)
+        {
+            numberOfPlayers++;
+        }
+
+        if (numberOfTravellers > currentNumberOftraveller && numberOfPlayers >= 3)
         {
             player.transform.position = travellerMarker;
             player.transform.rotation = Quaternion.Euler(0, 90, 0);
@@ -426,7 +433,14 @@ public class GameSystem : MonoBehaviour
 
     public void TagSupervisor()
     {
-        if (numberOfSupervisors > currentNumberOfsupervisor)
+        GameObject u = GameObject.Find("/Ubiq Network Scene (Demo)/Avatar Manager");
+        int numberOfPlayers = 0;
+        foreach (Transform child in u.transform)
+        {
+            numberOfPlayers++;
+        }
+
+        if (numberOfSupervisors > currentNumberOfsupervisor && numberOfPlayers >= 3)
         {
             player.transform.position = supervisorMarker;
             player.gameObject.tag = "Supervisor";
@@ -446,7 +460,14 @@ public class GameSystem : MonoBehaviour
 
     public void TagInspector()
     {
-        if (numberOfInspectors > currentNumberOfinspector)
+        GameObject u = GameObject.Find("/Ubiq Network Scene (Demo)/Avatar Manager");
+        int numberOfPlayers = 0;
+        foreach (Transform child in u.transform)
+        {
+            numberOfPlayers++;
+        }
+
+        if (numberOfInspectors > currentNumberOfinspector && numberOfPlayers >= 3)
         {
             player.transform.position = inspectorMarker;
             player.gameObject.tag = "Inspector";
