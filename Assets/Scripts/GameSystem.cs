@@ -231,7 +231,7 @@ public class GameSystem : MonoBehaviour
 
                 SpawnPassport(passportIndices[currentRounds - 1]);
 
-                //HideFinalResult();
+                HideFinalResult();
 
                 Message m = new Message();
                 m.token = token;

@@ -5,6 +5,12 @@ using UnityEngine;
 public class SupervisorScreen : MonoBehaviour
 {
     [SerializeField] GameObject player;
+
+    [Header("Role Vision")]
+    [SerializeField] bool presentToTraveller;
+    [SerializeField] bool presentToInspector;
+    [SerializeField] bool presentToSupervisor;
+
     Vector3 originalScale;
 
     private void Start()
@@ -15,7 +21,15 @@ public class SupervisorScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.CompareTag("Supervisor"))
+        if (player.CompareTag("Supervisor") && presentToSupervisor)
+        {
+            gameObject.transform.localScale = originalScale;
+        }
+        else if (player.CompareTag("Inspector") && presentToInspector)
+        {
+            gameObject.transform.localScale = originalScale;
+        }
+        else if (player.CompareTag("Traveller") && presentToTraveller)
         {
             gameObject.transform.localScale = originalScale;
         }
