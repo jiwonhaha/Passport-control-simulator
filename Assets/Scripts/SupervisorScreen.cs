@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class SupervisorScreen : MonoBehaviour
 {
-    GameObject player;
+    [SerializeField] GameObject player;
     Vector3 originalScale;
 
     private void Start()
     {
         originalScale = gameObject.transform.localScale;
-        player = GameObject.FindGameObjectsWithTag("Player")[0];
     }
 
     // Update is called once per frame
