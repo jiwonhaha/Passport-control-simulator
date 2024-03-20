@@ -87,7 +87,7 @@ public class CheckPassport : MonoBehaviour
 
             // Spawn the selected GameObject
             // Inspector monitor
-            GameObject instantiatedUI1 = Instantiate(selectedUIinspector, inspectorMonitor, Quaternion.Euler(0, 0, 0));
+            GameObject instantiatedUI1 = Instantiate(selectedUIinspector, inspectorMonitor, Quaternion.Euler(0, -90, 0));
             // Supervisor monitor
             GameObject instantiatedUI2 = Instantiate(selectedUIsupervisor, supervisorMonitor, Quaternion.Euler(0, 90, 0));
             instantiatedUIElements.Add(instantiatedUI1);
