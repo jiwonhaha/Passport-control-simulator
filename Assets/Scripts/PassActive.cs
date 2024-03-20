@@ -51,12 +51,25 @@ public class PassActive : MonoBehaviour
     {
         if (gameSystem.isInGame)
         {
-            // Action to perform when the XR button is interacted with
-            hasChosenChoice = true;
+            if (gameObject.name.StartsWith("Supervisor") && !gameSystem.supervisorHasChosen)
+            {
+                // Action to perform when the XR button is interacted with
+                hasChosenChoice = true;
 
-            Message b = new Message();
-            b.isPress = hasChosenChoice;
-            context.SendJson(b);
+                Message b = new Message();
+                b.isPress = hasChosenChoice;
+                context.SendJson(b);
+            }
+
+            if (gameObject.name.StartsWith("Inspector") && !gameSystem.inspectorHasChosen)
+            {
+                // Action to perform when the XR button is interacted with
+                hasChosenChoice = true;
+
+                Message b = new Message();
+                b.isPress = hasChosenChoice;
+                context.SendJson(b);
+            }
         }
         
     }

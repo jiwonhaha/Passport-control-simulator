@@ -7,15 +7,22 @@ using UnityEngine.UI;
 
 public class GameSystem : MonoBehaviour
 {
+    [System.NonSerialized]
+    public bool isInGame;
+    [System.NonSerialized]
+    public bool isGameReset;
+    [System.NonSerialized]
+    public int currentRounds;
+    [System.NonSerialized]
+    public bool inspectorHasChosen;
+    [System.NonSerialized]
+    public bool supervisorHasChosen;
+
     [Header("XR objects")]
     [SerializeField] GameObject player;
     [SerializeField] GameObject deviceSimulator;
 
-    [Header("Game Simulation")]
-    [System.NonSerialized]
-    public bool isInGame;
-    public bool isGameReset;
-
+    
     [Header("UI Buttons")]
     [SerializeField] Button travellerButton;
     [SerializeField] Button inspectorButton;
@@ -55,12 +62,7 @@ public class GameSystem : MonoBehaviour
 
     [Header("Result UI")]
     [SerializeField] GameObject[] ResultUI;
-
-
-    public int currentRounds;
-    bool inspectorHasChosen;
-    bool supervisorHasChosen;
-
+    
     int currentNumberOftraveller = 0;
     int currentNumberOfinspector = 0;
     int currentNumberOfsupervisor = 0;
