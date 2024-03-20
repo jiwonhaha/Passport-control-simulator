@@ -257,7 +257,7 @@ public class GameSystem : MonoBehaviour
         Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
 
         selectedStory.SetActive(true);
-        Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, 90, 0));
+        Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, 45, 0));
 
     }
 
