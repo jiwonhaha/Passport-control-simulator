@@ -35,12 +35,14 @@ public class CheckPassport : MonoBehaviour
 
     void OnCollisionEnter(Collision other) 
     {
-        for (int i = 0; i < passports.Length; i++)
+        if (other.gameObject.tag == "Passport")
         {
-            if (passports[i] == other.gameObject)
+            for (int i = 0; i < passports.Length; i++)
             {
-                ActivateUIElement(i);
-                break;
+                if (other.gameObject.name.StartsWith(passports[i].gameObject.name))
+                {
+                    ActivateUIElement(i);
+                }
             }
         }
     }
