@@ -479,6 +479,7 @@ public class GameSystem : MonoBehaviour
         if (numberOfSupervisors > currentNumberOfsupervisor && numberOfPlayers >= minimumPlayers)
         {
             player.transform.position = supervisorMarker;
+            player.transform.rotation = Quaternion.Euler(0, 90, 0);
             player.gameObject.tag = "Supervisor";
 
             Debug.Log("Player choose supervisor role!");
@@ -506,6 +507,7 @@ public class GameSystem : MonoBehaviour
         if (numberOfInspectors > currentNumberOfinspector && numberOfPlayers >= minimumPlayers)
         {
             player.transform.position = inspectorMarker;
+            player.transform.rotation = Quaternion.Euler(0, -90, 0);
             player.gameObject.tag = "Inspector";
 
             Debug.Log("Player choose inspector role!");
