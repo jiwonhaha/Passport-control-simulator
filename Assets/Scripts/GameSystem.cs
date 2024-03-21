@@ -239,10 +239,10 @@ public class GameSystem : MonoBehaviour
                 inspectorButton.interactable = true;
             }
 
-            //if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors && currentNumberOftraveller == numberOfTravellers)
-            if (currentNumberOfinspector == numberOfInspectors && currentNumberOftraveller == numberOfTravellers)
+            if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors && currentNumberOftraveller == numberOfTravellers)
+            //if (currentNumberOfinspector == numberOfInspectors && currentNumberOftraveller == numberOfTravellers)
             //if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
-            //if (currentNumberOfinspector == numberOfInspectors)
+            //if (currentNumberOftraveller == numberOfTravellers)
             {
                 isInGame = true;
                 currentRounds = 1;

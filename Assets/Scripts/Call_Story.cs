@@ -12,9 +12,13 @@ public class Call_Story : MonoBehaviour
 
     int index;
 
-    void Update() 
+    private void Start()
     {
         gameSystem = GameObject.FindGameObjectWithTag("Game System");
+    }
+
+    private void Update() 
+    {
         index = gameSystem.GetComponents<GameSystem>()[0].passportIndices[0];
     }
 
