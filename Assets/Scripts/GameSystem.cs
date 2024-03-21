@@ -280,7 +280,7 @@ public class GameSystem : MonoBehaviour
 
         if (round != 1){
             selectedStory.SetActive(true);
-            Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, -45, 0));
+            Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, 135, 0));
 
         }
     }
