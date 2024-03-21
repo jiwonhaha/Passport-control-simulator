@@ -331,8 +331,7 @@ public class GameSystem : MonoBehaviour
         {
             Destroy(obj);
         }
-    instantiatedObjects.Clear();
-        
+        instantiatedObjects.Clear();
     }
 
     IEnumerator GameReset()
@@ -340,16 +339,22 @@ public class GameSystem : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
-        GameObject passport = GameObject.FindGameObjectsWithTag("Passport")[0];
-        Destroy(passport);
+        GameObject[] passports = GameObject.FindGameObjectsWithTag("Passport");
+        foreach (GameObject passport in passports)
+        {
+            Destroy(passport);
+        }
 
-        GameObject story = GameObject.FindGameObjectsWithTag("Story")[0];
-        Destroy(story);
+        GameObject[] stories = GameObject.FindGameObjectsWithTag("Story");
+        foreach (GameObject story in stories)
+        {
+            Destroy(story);
+        }
 
         GameObject[] screens = GameObject.FindGameObjectsWithTag("Passport UI");
-        for (int i = 0; i < screens.Length; i++)
+        foreach (GameObject screen in screens)
         {
-            Destroy(screens[i]);
+            Destroy(screen);
         }
 
         cage.transform.localPosition = new Vector3(-4.5f, 4f, 10f);
