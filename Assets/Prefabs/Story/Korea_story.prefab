@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 6241873303241774979}
   - component: {fileID: 586220741750128783}
   - component: {fileID: 3889913554852242103}
+  - component: {fileID: -4572131886203784649}
   - component: {fileID: 2750395958827638079}
   m_Layer: 5
   m_Name: Korea_story
@@ -221,6 +222,21 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &-4572131886203784649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529601546387485648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955224189952c4345b9e07307ace20ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  presentToTraveller: 1
+  presentToInspector: 0
+  presentToSupervisor: 0
 --- !u!114 &2750395958827638079
 MonoBehaviour:
   m_ObjectHideFlags: 0

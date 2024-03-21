@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class CheckPassport : MonoBehaviour
 {
-    [Header("Passport and UI Elements")]
-    [SerializeField] private GameObject[] uiElements;
-    [SerializeField] private GameObject[] answerElements;
+    private GameObject gameSystem;
+
+    private GameObject[] uiElements;
+    private GameObject[] answerElements;
+    private GameObject[] passports;
     private List<GameObject> instantiatedUIElements = new List<GameObject>();
 
     [Header("Screen Monitor")]
@@ -15,6 +17,12 @@ public class CheckPassport : MonoBehaviour
 
     void Start()
     {
+        gameSystem = GameObject.FindGameObjectWithTag("Game System");
+
+        passports = gameSystem.GetComponent<GameSystem>().passports;
+        uiElements = gameSystem.GetComponent<GameSystem>().passportScreens;
+        answerElements = gameSystem.GetComponent<GameSystem>().passportAnswers;
+
         // Initially, deactivate all UI elements
         if (uiElements != null)
         {
@@ -27,29 +35,12 @@ public class CheckPassport : MonoBehaviour
 
     void OnCollisionEnter(Collision other) 
     {
-        string name = other.gameObject.name; 
-
-        if (other.gameObject.tag == "Passport")
+        for (int i = 0; i < passports.Length; i++)
         {
-            if (name.StartsWith("saudi"))
+            if (passports[i] == other.gameObject)
             {
-                ActivateUIElement(0);
-            }
-            else if (name.StartsWith("thailand"))
-            {
-                ActivateUIElement(1); 
-            }
-            else if (name.StartsWith("croatia"))
-            {
-                ActivateUIElement(2); 
-            }
-            else if (name.StartsWith("brazil"))
-            {
-                ActivateUIElement(3); 
-            }
-            else if (name.StartsWith("korea"))
-            {
-                ActivateUIElement(4);
+                ActivateUIElement(i);
+                break;
             }
         }
     }

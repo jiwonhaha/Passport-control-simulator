@@ -40,10 +40,10 @@ public class GameSystem : MonoBehaviour
     [SerializeField] GameObject cage;
 
     [Header("Passport List")]
-    [SerializeField] GameObject[] passports;
-    [SerializeField] GameObject[] passportScreens;
-    [SerializeField] GameObject[] passportAnswers;
-    [SerializeField] GameObject[] stories;
+    [SerializeField] public GameObject[] passports;
+    [SerializeField] public GameObject[] passportScreens;
+    [SerializeField] public GameObject[] passportAnswers;
+    [SerializeField] public GameObject[] stories;
 
     [Header("Teleportation Marker")]
     [SerializeField] Vector3 travellerMarker;
