@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 4995751050669199304}
   - component: {fileID: 5038238544285159590}
   - component: {fileID: 4879176968344245355}
+  - component: {fileID: -9079657501533233805}
   m_Layer: 5
   m_Name: Inspector Instruction
   m_TagString: Story
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1198134440589658836
 RectTransform:
   m_ObjectHideFlags: 0
@@ -120,6 +121,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a049ca8bdf1443afa195aacccaff728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-9079657501533233805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972026331118384665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955224189952c4345b9e07307ace20ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  presentToTraveller: 0
+  presentToInspector: 1
+  presentToSupervisor: 0
 --- !u!1 &1467335192987858478
 GameObject:
   m_ObjectHideFlags: 0
