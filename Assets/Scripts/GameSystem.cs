@@ -240,8 +240,8 @@ public class GameSystem : MonoBehaviour
             }
 
             //if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors && currentNumberOftraveller == numberOfTravellers)
-            //if (currentNumberOfinspector == numberOfInspectors && currentNumberOftraveller == numberOfTravellers)
-            if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
+            if (currentNumberOfinspector == numberOfInspectors && currentNumberOftraveller == numberOfTravellers)
+            //if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
             //if (currentNumberOfinspector == numberOfInspectors)
             {
                 isInGame = true;
@@ -278,7 +278,7 @@ public class GameSystem : MonoBehaviour
 
         Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
 
-        if (round == 1){
+        if (round != 1){
             selectedStory.SetActive(true);
             Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, -45, 0));
 
