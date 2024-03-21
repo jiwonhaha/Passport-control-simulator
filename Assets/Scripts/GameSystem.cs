@@ -253,7 +253,7 @@ public class GameSystem : MonoBehaviour
 
                 Instantiate(InstructionUI[0], new Vector3(2.5f, 1.0f, 54.0f), Quaternion.Euler(0, 135, 0)); //Traveller
                 Instantiate(InstructionUI[1], new Vector3(4.85300016f,0.985000014f,45.5f), Quaternion.Euler(0, 270, 0)); // inspector
-                Instantiate(InstructionUI[2], new Vector3(1.63f,0.985000014f,45.387001f), Quaternion.Euler(0, 90, 0)); // supervisor
+                Instantiate(InstructionUI[2], new Vector3(1.23599994f,0.985000014f,45.387001f), Quaternion.Euler(0, 90, 0)); // supervisor
 
                 HideFinalResult();
 
