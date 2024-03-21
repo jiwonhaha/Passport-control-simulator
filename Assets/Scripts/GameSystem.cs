@@ -69,7 +69,8 @@ public class GameSystem : MonoBehaviour
     int currentNumberOfsupervisor = 0;
 
     int token;
-    List<int> passportIndices = new List<int>();
+    [System.NonSerialized]
+    public List<int> passportIndices = new List<int>();
     List<bool> inspectorDecisionList = new List<bool>();
     List<bool> supervisorDecisionList = new List<bool>();
 
