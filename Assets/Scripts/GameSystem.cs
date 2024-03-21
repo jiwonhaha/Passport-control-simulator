@@ -133,6 +133,9 @@ public class GameSystem : MonoBehaviour
                     leftDoorGate.SetActive(false);
                     rightDoorGate.SetActive(false);
                     inspectorHasChosen = true;
+
+                    inspectorPassButton.GetComponent<PassActive>().OnDisable();
+                    inspectorRejectButton.GetComponent<PassActive>().OnDisable();
                 }
                 if (inspectorReject)
                 {
@@ -140,6 +143,9 @@ public class GameSystem : MonoBehaviour
                     inspectorDecisionList.Add(false);
                     cage.SetActive(true);
                     inspectorHasChosen = true;
+
+                    inspectorPassButton.GetComponent<PassActive>().OnDisable();
+                    inspectorRejectButton.GetComponent<PassActive>().OnDisable();
                 }
             }
 
@@ -150,12 +156,18 @@ public class GameSystem : MonoBehaviour
                     Debug.Log("Round: " + currentRounds + ", supervisor chose passed!");
                     supervisorDecisionList.Add(true);
                     supervisorHasChosen = true;
+
+                    supervisorPassButton.GetComponent<PassActive>().OnDisable();
+                    supervisorRejectButton.GetComponent<PassActive>().OnDisable();
                 }
                 if (supervisorReject)
                 {
                     Debug.Log("Round: " + currentRounds + ", supervisor chose rejected!");
                     supervisorDecisionList.Add(false);
                     supervisorHasChosen = true;
+
+                    supervisorPassButton.GetComponent<PassActive>().OnDisable();
+                    supervisorRejectButton.GetComponent<PassActive>().OnDisable();
                 }
             }
 
@@ -225,7 +237,8 @@ public class GameSystem : MonoBehaviour
 
             //if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors && currentNumberOftraveller == numberOfTravellers)
             //if (currentNumberOfinspector == numberOfInspectors && currentNumberOftraveller == numberOfTravellers)
-            if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
+            //if (currentNumberOfinspector == numberOfInspectors && currentNumberOfsupervisor == numberOfSupervisors)
+            if (currentNumberOfinspector == numberOfInspectors)
             {
                 isInGame = true;
                 currentRounds = 1;
@@ -334,6 +347,11 @@ public class GameSystem : MonoBehaviour
 
         leftDoorGate.SetActive(true);
         rightDoorGate.SetActive(true);
+
+        inspectorPassButton.GetComponent<PassActive>().OnEnable();
+        inspectorRejectButton.GetComponent<PassActive>().OnEnable();
+        supervisorPassButton.GetComponent<PassActive>().OnEnable();
+        supervisorRejectButton.GetComponent<PassActive>().OnEnable();
 
         isGameReset = false;
 

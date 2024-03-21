@@ -35,13 +35,13 @@ public class PassActive : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    public void OnEnable()
     {
         // Subscribe to the interactable's events
         xrButton.onSelectEntered.AddListener(HandleSelectEntered);
     }
 
-    void OnDisable()
+    public void OnDisable()
     {
         // Unsubscribe to prevent memory leaks or errors when the object is destroyed
         xrButton.onSelectEntered.RemoveListener(HandleSelectEntered);
@@ -51,25 +51,11 @@ public class PassActive : MonoBehaviour
     {
         if (gameSystem.isInGame)
         {
-            if (gameObject.name.StartsWith("Supervisor") && !gameSystem.supervisorHasChosen)
-            {
-                // Action to perform when the XR button is interacted with
-                hasChosenChoice = true;
+            hasChosenChoice = true;
 
-                Message b = new Message();
-                b.isPress = hasChosenChoice;
-                context.SendJson(b);
-            }
-
-            if (gameObject.name.StartsWith("Inspector") && !gameSystem.inspectorHasChosen)
-            {
-                // Action to perform when the XR button is interacted with
-                hasChosenChoice = true;
-
-                Message b = new Message();
-                b.isPress = hasChosenChoice;
-                context.SendJson(b);
-            }
+            Message b = new Message();
+            b.isPress = hasChosenChoice;
+            context.SendJson(b);
         }
         
     }
