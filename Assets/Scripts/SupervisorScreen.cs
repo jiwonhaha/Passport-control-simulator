@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SupervisorScreen : MonoBehaviour
 {
-    [SerializeField] GameObject player;
+    GameObject player;
 
     [Header("Role Vision")]
     [SerializeField] bool presentToTraveller;
@@ -16,6 +16,7 @@ public class SupervisorScreen : MonoBehaviour
     private void Start()
     {
         originalScale = gameObject.transform.localScale;
+        player = GameObject.Find("/Local Player/XR Origin (XR Rig)");
     }
 
     // Update is called once per frame
