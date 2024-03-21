@@ -249,7 +249,7 @@ public class GameSystem : MonoBehaviour
 
                 Debug.Log("Start round " + currentRounds);
 
-                SpawnPassport(passportIndices[currentRounds - 1]);
+                SpawnPassport(passportIndices[currentRounds - 1], currentRounds);
 
                 Instantiate(InstructionUI[0], new Vector3(2.5f, 1.0f, 54.0f), Quaternion.Euler(0, 135, 0)); //Traveller
                 Instantiate(InstructionUI[1], new Vector3(4.85300016f,0.985000014f,45.5f), Quaternion.Euler(0, 270, 0)); // inspector
@@ -271,16 +271,18 @@ public class GameSystem : MonoBehaviour
         }
     }
 
-    private void SpawnPassport(int randomIndex)
+    private void SpawnPassport(int randomIndex, int round)
     {
         GameObject selectedPassport = passports[randomIndex];
         GameObject selectedStory = stories[randomIndex];
 
         Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
 
-        selectedStory.SetActive(true);
-        Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, -45, 0));
+        if (round == 1){
+            selectedStory.SetActive(true);
+            Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, -45, 0));
 
+        }
     }
 
     private void ShowFinalResult()
@@ -410,7 +412,7 @@ public class GameSystem : MonoBehaviour
         else
         {
             Debug.Log("Start round " + currentRounds);
-            SpawnPassport(passportIndices[currentRounds - 1]);
+            SpawnPassport(passportIndices[currentRounds - 1], currentRounds);
 
             Message m = new Message();
             if (player.CompareTag("Traveller"))
