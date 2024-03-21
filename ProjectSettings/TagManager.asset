@@ -12,6 +12,7 @@ TagManager:
   - Passport
   - Passport UI
   - Story
+  - Game System
   layers:
   - Default
   - TransparentFX

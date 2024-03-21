@@ -6,7 +6,7 @@ public class Call_Story : MonoBehaviour
 {
     [SerializeField] private GameObject[] storyUI;
 
-    [SerializeField] private GameSystem gameSystem;
+    GameObject gameSystem;
 
     [SerializeField] private GameObject currentPage;
 
@@ -14,7 +14,8 @@ public class Call_Story : MonoBehaviour
 
     void Update() 
     {
-        index = gameSystem.passportIndices[0];
+        gameSystem = GameObject.FindGameObjectWithTag("Game System");
+        index = gameSystem.GetComponents<GameSystem>()[0].passportIndices[0];
     }
 
     public void TurnPage()
