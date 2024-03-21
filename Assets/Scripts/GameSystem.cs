@@ -59,6 +59,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField] int numberOfTravellers;
     [SerializeField] int numberOfInspectors;
     [SerializeField] int numberOfSupervisors;
+    [SerializeField] int minimumPlayers = 2;
 
     [Header("Result UI")]
     [SerializeField] GameObject[] ResultUI;
@@ -257,7 +258,7 @@ public class GameSystem : MonoBehaviour
         Instantiate(selectedPassport, passportSpawnPoint, UnityEngine.Random.rotation);
 
         selectedStory.SetActive(true);
-        Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, 45, 0));
+        Instantiate(selectedStory, storySpawnPoint, Quaternion.Euler(0, -45, 0));
 
     }
 
@@ -413,7 +414,7 @@ public class GameSystem : MonoBehaviour
             numberOfPlayers++;
         }
 
-        if (numberOfTravellers > currentNumberOftraveller && numberOfPlayers >= 3)
+        if (numberOfTravellers > currentNumberOftraveller && numberOfPlayers >= minimumPlayers)
         {
             player.transform.position = travellerMarker;
             player.transform.rotation = Quaternion.Euler(0, 90, 0);
@@ -442,7 +443,7 @@ public class GameSystem : MonoBehaviour
             numberOfPlayers++;
         }
 
-        if (numberOfSupervisors > currentNumberOfsupervisor && numberOfPlayers >= 3)
+        if (numberOfSupervisors > currentNumberOfsupervisor && numberOfPlayers >= minimumPlayers)
         {
             player.transform.position = supervisorMarker;
             player.gameObject.tag = "Supervisor";
@@ -469,7 +470,7 @@ public class GameSystem : MonoBehaviour
             numberOfPlayers++;
         }
 
-        if (numberOfInspectors > currentNumberOfinspector && numberOfPlayers >= 3)
+        if (numberOfInspectors > currentNumberOfinspector && numberOfPlayers >= minimumPlayers)
         {
             player.transform.position = inspectorMarker;
             player.gameObject.tag = "Inspector";
