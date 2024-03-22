@@ -276,11 +276,6 @@ public class GameSystem : MonoBehaviour
 
     private void ShowFinalResult()
     {
-        if (supervisorDecisionList.Count != inspectorDecisionList.Count || supervisorDecisionList.Count != passportIndices.Count)
-        {
-            Debug.LogError("The lists must have the same length.");
-            return;
-        }
         
         Vector3 FResultSpawnPoint = new Vector3(4.749f, 1.0f, 3.0f);
         Vector3 FAnsSpawnPoint = new Vector3(4.74f, 1.0f, 3.0f);
@@ -371,8 +366,6 @@ public class GameSystem : MonoBehaviour
             currentNumberOfsupervisor = 0;
             currentNumberOftraveller = 0;
 
-            ShowFinalResult();
-
             Message m = new Message();
             m.token = 0;
             m.passportIndices = passportIndices;
@@ -385,6 +378,8 @@ public class GameSystem : MonoBehaviour
 
             player.gameObject.tag = "Player";
             player.transform.position = lobbyMarker;
+
+            ShowFinalResult();
         }
         else
         {
