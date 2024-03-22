@@ -105,17 +105,7 @@ public class GameSystem : MonoBehaviour
         supervisorHasChosen = false;
 
         token = 0;
-
-        int count = 0;
-        do
-        {
-            int index = new System.Random().Next(0, passports.Length);
-            if (!passportIndices.Contains(index))
-            {
-                passportIndices.Add(index);
-                count++;
-            }
-        } while (count < numberOfRounds);
+        StartCoroutine(RandomGenerateIndice());
     }
 
     private void Update()
