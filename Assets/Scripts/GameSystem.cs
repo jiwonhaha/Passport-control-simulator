@@ -360,11 +360,15 @@ public class GameSystem : MonoBehaviour
             Debug.Log("Game End!");
             isInGame = false;
 
+            ShowFinalResult();
+
             currentRounds = 0;
 
             currentNumberOfinspector = 0;
             currentNumberOfsupervisor = 0;
             currentNumberOftraveller = 0;
+
+            passportIndices = new List<int>();
 
             Message m = new Message();
             m.token = 0;
@@ -374,12 +378,11 @@ public class GameSystem : MonoBehaviour
             m.totalOfinspector = currentNumberOfinspector;
             context.SendJson(m);
 
+            token = 0;
             StartCoroutine(RandomGenerateIndice());
 
             player.gameObject.tag = "Player";
             player.transform.position = lobbyMarker;
-
-            ShowFinalResult();
         }
         else
         {
