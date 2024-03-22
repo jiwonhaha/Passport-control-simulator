@@ -217,9 +217,8 @@ public class GameSystem : MonoBehaviour
             {
                 ColorBlock colors = supervisorButton.colors;
                 colors.disabledColor = Color.green;
-                supervisorButton.colors = colors;
-
-                supervisorButton.interactable = true;
+                supervisorButton.colors = colors;    
+                 supervisorButton.interactable = true;
             }
             // Inspector Button
             if (currentNumberOfinspector == numberOfInspectors)
@@ -385,31 +384,14 @@ public class GameSystem : MonoBehaviour
             ShowFinalResult();
 
             Message m = new Message();
-            if (player.CompareTag("Traveller"))
-            {
-                m.token = 1;
-
-                passportIndices = new List<int>();
-                int count = 0;
-                do
-                {
-                    int index = new System.Random().Next(0, passports.Length);
-                    if (!passportIndices.Contains(index))
-                    {
-                        passportIndices.Add(index);
-                        count++;
-                    }
-                } while (count < numberOfRounds);
-            }
-            else
-            {
-                m.token = 0;
-                m.passportIndices = passportIndices;
-            }
+            m.token = 0;
+            m.passportIndices = passportIndices;
             m.totalOftraveller = currentNumberOftraveller;
             m.totalOfsupervisor = currentNumberOfsupervisor;
             m.totalOfinspector = currentNumberOfinspector;
             context.SendJson(m);
+
+            StartCoroutine(RandomGenerateIndice());
 
             player.gameObject.tag = "Player";
             player.transform.position = lobbyMarker;
@@ -436,6 +418,24 @@ public class GameSystem : MonoBehaviour
             m.totalOfinspector = currentNumberOfinspector;
             context.SendJson(m);
         }
+    }
+
+    IEnumerator RandomGenerateIndice()
+    {
+
+        passportIndices = new List<int>();
+        int count = 0;
+        do
+        {
+            int index = new System.Random().Next(0, passports.Length);
+            if (!passportIndices.Contains(index))
+            {
+                passportIndices.Add(index);
+                count++;
+            }
+        } while (count < numberOfRounds);
+
+        yield return null;
     }
 
     public void TagTraveller()
